@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { useUser } from '.././src/components/context/UserContext'; // Adjust the path as necessary
 
 import SignUp from './components/SignUp/signup';
-import Landing from './Landing/landing';
+import Landing from './layouts/Landing/landing';
 import Login from './components/LoginPage/login';
 
 
