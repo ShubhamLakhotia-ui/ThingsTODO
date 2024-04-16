@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import "./landing.css"
-import image1 from '../image/O6XzLOum4NKKMfZZNstpiKnUJRsC6yrgaRBRFgWf.webp';
-import image2 from '../image/MXrpSCMtviJrXwsIrJzYKn1lDxODtLILJc3Ahtxp.webp';
-import image3 from '../image/mzTGePUGW8N0xQoD0aT6UosoRudmneTQ65Tr2pAG.webp';
-import image4 from '../image/gbpUhoB7rp6JWE2HN4pn0OCGgnUDVuGwFAQUOlkq.webp';
-import image5 from "../image/adventure.jpg";
-import image6 from "../image/hbd.jpg";
-import image7 from "../image/date.jpg";
-import image8 from "../image/at-home.jpg";
+import image1 from '../../image/O6XzLOum4NKKMfZZNstpiKnUJRsC6yrgaRBRFgWf.webp';
+import image2 from '../../image/MXrpSCMtviJrXwsIrJzYKn1lDxODtLILJc3Ahtxp.webp';
+import image3 from '../../image/mzTGePUGW8N0xQoD0aT6UosoRudmneTQ65Tr2pAG.webp';
+import image4 from '../../image/gbpUhoB7rp6JWE2HN4pn0OCGgnUDVuGwFAQUOlkq.webp';
+import image5 from "../../image/adventure.jpg";
+import image6 from "../../image/hbd.jpg";
+import image7 from "../../image/date.jpg";
+import image8 from "../../image/at-home.jpg";
 
 
 const Landing = () => {
