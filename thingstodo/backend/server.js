@@ -6,8 +6,13 @@ const path=require('path');
 const Query = require('./models/querries');
 const EventModel=require('./models/eventModel');
 const cors = require('cors');
+const User = require('./models/usersignupModels');
+
+
 app.use(express.json());
- app.use(cors());
+app.use(cors());
+
+
 const storage=multer.diskStorage({destination:(req,file,cb)=>{
     cb(null,'Images')
 },
@@ -19,6 +24,47 @@ const upload=multer({storage:storage}).single('image');
 app.get('/', (req, res) => {
     res.send("Hello, App!");
 });
+
+
+
+////////////////// Signup Section ////////////////
+
+
+// Register new user
+
+app.post('/signup', async (req, res) => {
+    try {
+      const { username, email, password, type } = req.body; // Adjust based on your form data
+      const newUser = new User({ username, email, password, type });
+      await newUser.save();
+      res.status(201).send({ message: "User created successfully!", userId: newUser._id });
+    } catch (error) {
+      console.error("Signup Error:", error);
+      res.status(400).send(error);
+    }
+  });
+  
+  // Login User
+
+  app.post('/login', async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const user = await User.findOne({ username });
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+      const isMatch = await user.comparePassword(password);
+      if (!isMatch) {
+        return res.status(400).send('Invalid credentials');
+      }
+      res.send({ message: 'Login successful', userType: user.type }); // Assuming you want to send user type
+    } catch (error) {
+      console.error("Login Error:", error);
+      res.status(500).send(error);
+    }
+  });
+
+  
 
 app.post('/thingstodo/query', async (req, res) => {
     try {
@@ -68,6 +114,8 @@ app.post('/thingstodo/add-event', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+
 app.get('/thingstodo/get-all-images', async (req, res) => {
     try {
         const images = await EventModel.find({});
@@ -77,6 +125,8 @@ app.get('/thingstodo/get-all-images', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+
 
 app.get('/thingstodo/get-event/:userId', async (req, res) => {
     try {

@@ -10,6 +10,8 @@ import image5 from "../image/adventure.jpg";
 import image6 from "../image/hbd.jpg";
 import image7 from "../image/date.jpg";
 import image8 from "../image/at-home.jpg";
+
+
 const Landing = () => {
   // State to hold exclusive experiences fetched from the API
   const [exclusiveExperiences, setExclusiveExperiences] = useState([]);
@@ -77,8 +79,8 @@ const Landing = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="login.html">
-                  Login/Sign Up
+                <a className="nav-link" href="/login">
+                  Logout
                 </a>
               </li>
             </ul>
