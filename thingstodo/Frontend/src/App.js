@@ -22,7 +22,6 @@ const App = () => {
         <Route path="/landing" element={<Landing />} />
         <Route path="/admin-landing" element={<AdminLanding />} />
         <Route path="/add-event" element={<AddEventForm />} />
-     \
         {/* <Route path="/edit" element={<EditPage />} /> */}
         <Route path="/" element={
           !user ? (
