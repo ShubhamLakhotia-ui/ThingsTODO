@@ -6,6 +6,8 @@ import { useUser } from '.././src/components/context/UserContext'; // Adjust the
 import SignUp from './components/SignUp/signup';
 import Landing from './layouts/Landing/landing';
 import Login from './components/LoginPage/login';
+import AdminLanding from './layouts/Landing/adminLanding';
+import EditPage from './layouts/Landing/edit';
 
 
 const App = () => {
@@ -16,6 +18,9 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/landing" element={<Landing />} />
+        <Route path="/admin-landing" element={<AdminLanding />} />
+        {/* <Route path="/edit" element={<EditPage />} /> */}
         <Route path="/" element={
           !user ? (
             <Navigate to="/login" />
