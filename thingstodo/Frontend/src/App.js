@@ -8,6 +8,7 @@ import Landing from './layouts/Landing/landing';
 import Login from './components/LoginPage/login';
 import AdminLanding from './layouts/Landing/adminLanding';
 import EditPage from './layouts/Landing/edit';
+import AddEventForm from './layouts/Landing/addEvent';
 
 
 const App = () => {
@@ -20,6 +21,8 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/admin-landing" element={<AdminLanding />} />
+        <Route path="/add-event" element={<AddEventForm />} />
+     \
         {/* <Route path="/edit" element={<EditPage />} /> */}
         <Route path="/" element={
           !user ? (
