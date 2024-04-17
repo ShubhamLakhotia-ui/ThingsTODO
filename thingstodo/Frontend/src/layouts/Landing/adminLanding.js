@@ -12,6 +12,7 @@ import image7 from "../../image/date.jpg";
 import image8 from "../../image/at-home.jpg";
 import EditPage from './edit';
 import { Link, useNavigate } from 'react-router-dom';
+import './adminLanding.css';
 // import EditPage from './editEvent';
 
 
@@ -21,6 +22,9 @@ const AdminLanding = () => {
 //   const [editPageOpen, setEditPageOpen] = useState(false);
  
 //   const [selectedItem, setSelectedItem] = useState(null);
+const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success'); 
   const navigate = useNavigate();
   // Function to fetch exclusive experiences from the API
   const fetchExclusiveExperiences = async () => {
@@ -30,6 +34,35 @@ const AdminLanding = () => {
       console.log(exclusiveExperiences)// Assuming the API returns an array of exclusive experiences
     } catch (error) {
       console.error('Error fetching exclusive experiences:', error);
+    }
+  };
+
+  const handleDeleteClick = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/thingstodo/delete-event/${userId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Handle success
+        console.log('Event deleted successfully');
+        setAlertMessage('Event deleted successfully');
+        setAlertType('success');
+        setAlertVisible(true);
+        fetchExclusiveExperiences();
+        // Optionally, you can refresh the list of exclusive experiences
+      } else {
+        // Handle error
+        console.error('Failed to delete event');
+        setAlertMessage('Failed to delete event');
+        setAlertType('error');
+        setAlertVisible(true);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setAlertMessage('An error occurred while deleting the event');
+      setAlertType('error');
+      setAlertVisible(true);
     }
   };
 
@@ -63,12 +96,12 @@ const AdminLanding = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/admin-landing">
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/add-event">
                   Add Event
                 </a>
               </li>
@@ -184,14 +217,30 @@ const AdminLanding = () => {
                   </div>
                   <h3 className="card-title">{service.type}</h3>
                   <p className="lead">{service.description}</p>
-                  <EditPage/>
+                  <EditPage 
+  type1={service.type} 
+  description1={service.description} 
+  fetchExclusiveExperiences={fetchExclusiveExperiences} 
+  userId={service.userId}
+/>
 {/*                   
                   <button className="btn bg-warning text-dark" onClick={() => handleEditClick(service)}>Edit</button> */}
-                  <button className="btn bg-warning text-dark">Delete</button>
+                  {/* <button className="btn bg-warning text-dark">Delete</button> */}
+                  <button className="btn bg-warning text-dark" onClick={() => handleDeleteClick(service.userId)}>Delete</button>
                 </div>
               </div>
             </div>
           ))}
+         {alertVisible && (
+        <div className="modal-background">
+          <div className="alert-container">
+            <div className={`alert alert-${alertType}`} role="alert">
+              {alertMessage}
+              <button type="button" className="btn-close" aria-label="Close" onClick={() => setAlertVisible(false)}></button>
+            </div>
+          </div>
+        </div>
+      )}
         </div>
       </div>
     </section>
