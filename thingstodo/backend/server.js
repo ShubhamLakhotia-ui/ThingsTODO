@@ -114,6 +114,67 @@ app.post('/thingstodo/add-event', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+app.post('/thingstodo/edit-event', async (req, res) => {
+    try {
+        // Find the event by type
+        const event = await EventModel.findOne({ type: req.body.type });
+
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
+        // Update event description
+        event.description = req.body.description;
+
+        await event.save();
+        res.status(200).json({ message: 'Event description updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+// app.post('/thingstodo/edit-event', async (req, res) => {
+//     try {
+//         upload(req, res, async (err) => {
+//             if (err) {
+//                 console.error(err);
+//                 return res.status(400).json({ message: 'Error uploading image' });
+//             }
+
+//             if (!req.file) {
+//                 return res.status(400).json({ message: 'No image file provided' });
+//             }
+//             const fs = require('fs');
+//             const imageBuffer = fs.readFileSync(req.file.path);
+//             const base64Image = imageBuffer.toString('base64');
+
+//             // Find the event by type
+//             const event = await EventModel.findOne({ type: req.body.type });
+
+//             if (!event) {
+//                 return res.status(404).json({ message: 'Event not found' });
+//             }
+
+//             // Update event data
+//             event.userId = req.body.userId;
+//             event.type = req.body.type;
+//             event.description = req.body.description;
+//             event.image = {
+//                 data: base64Image,
+//                 contentType: 'image/png'
+//             };
+
+//             await event.save();
+//             res.status(200).json({ message: 'Event updated successfully' });
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
 
 
 app.get('/thingstodo/get-all-images', async (req, res) => {
