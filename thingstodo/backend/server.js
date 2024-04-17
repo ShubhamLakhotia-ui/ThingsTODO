@@ -7,6 +7,7 @@ const Query = require('./models/querries');
 const EventModel=require('./models/eventModel');
 const cors = require('cors');
 const User = require('./models/usersignupModels');
+const BookNow = require('./models/booknowmodel');
 
 
 app.use(express.json());
@@ -64,6 +65,43 @@ app.post('/signup', async (req, res) => {
     }
   });
 
+//   const express = require('express');
+//   const router = express.Router();
+//   const BookNow = require('./bookNowSchema');
+  
+  app.post('/booknow', async (req, res) => {
+      try {
+          const { firstName, lastName, email, phoneNumber, type } = req.body;
+  
+          // Create a new instance of the BookNow model using the provided data
+          const newBooking = new BookNow({ firstName, lastName, email, phoneNumber, type });
+  
+          // Save the new booking to the database
+          await newBooking.save();
+  
+          res.status(200).send({ message: "Booking created successfully!", bookingId: newBooking._id });
+      } catch (error) {
+          console.error("Booking Error:", error);
+          res.status(400).send(error);
+      }
+  });
+
+  app.get('/booknow-getall', async (req, res) => {
+    try {
+        // Fetch all bookings from the database
+        const bookings = await BookNow.find();
+
+        res.status(200).send(bookings);
+    } catch (error) {
+        console.error("Error fetching bookings:", error);
+        res.status(500).send({ message: "Internal server error" });
+    }
+});
+  
+ 
+  
+  
+
   
 
 app.post('/thingstodo/query', async (req, res) => {
@@ -114,6 +152,67 @@ app.post('/thingstodo/add-event', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+app.post('/thingstodo/edit-event', async (req, res) => {
+    try {
+        // Find the event by type
+        const event = await EventModel.findOne({ type: req.body.type });
+
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
+        // Update event description
+        event.description = req.body.description;
+
+        await event.save();
+        res.status(200).json({ message: 'Event description updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+// app.post('/thingstodo/edit-event', async (req, res) => {
+//     try {
+//         upload(req, res, async (err) => {
+//             if (err) {
+//                 console.error(err);
+//                 return res.status(400).json({ message: 'Error uploading image' });
+//             }
+
+//             if (!req.file) {
+//                 return res.status(400).json({ message: 'No image file provided' });
+//             }
+//             const fs = require('fs');
+//             const imageBuffer = fs.readFileSync(req.file.path);
+//             const base64Image = imageBuffer.toString('base64');
+
+//             // Find the event by type
+//             const event = await EventModel.findOne({ type: req.body.type });
+
+//             if (!event) {
+//                 return res.status(404).json({ message: 'Event not found' });
+//             }
+
+//             // Update event data
+//             event.userId = req.body.userId;
+//             event.type = req.body.type;
+//             event.description = req.body.description;
+//             event.image = {
+//                 data: base64Image,
+//                 contentType: 'image/png'
+//             };
+
+//             await event.save();
+//             res.status(200).json({ message: 'Event updated successfully' });
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
 
 
 app.get('/thingstodo/get-all-images', async (req, res) => {
