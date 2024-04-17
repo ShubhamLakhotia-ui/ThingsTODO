@@ -8,6 +8,7 @@ const EventModel=require('./models/eventModel');
 const cors = require('cors');
 const User = require('./models/usersignupModels');
 const bodyParser = require('body-parser');
+const BookNow = require('./models/booknowmodel');
 
 
 app.use(express.json());
@@ -65,6 +66,43 @@ app.post('/signup', async (req, res) => {
       res.status(500).send(error);
     }
   });
+
+//   const express = require('express');
+//   const router = express.Router();
+//   const BookNow = require('./bookNowSchema');
+  
+  app.post('/booknow', async (req, res) => {
+      try {
+          const { firstName, lastName, email, phoneNumber, type } = req.body;
+  
+          // Create a new instance of the BookNow model using the provided data
+          const newBooking = new BookNow({ firstName, lastName, email, phoneNumber, type });
+  
+          // Save the new booking to the database
+          await newBooking.save();
+  
+          res.status(200).send({ message: "Booking created successfully!", bookingId: newBooking._id });
+      } catch (error) {
+          console.error("Booking Error:", error);
+          res.status(400).send(error);
+      }
+  });
+
+  app.get('/booknow-getall', async (req, res) => {
+    try {
+        // Fetch all bookings from the database
+        const bookings = await BookNow.find();
+
+        res.status(200).send(bookings);
+    } catch (error) {
+        console.error("Error fetching bookings:", error);
+        res.status(500).send({ message: "Internal server error" });
+    }
+});
+  
+ 
+  
+  
 
   
 
