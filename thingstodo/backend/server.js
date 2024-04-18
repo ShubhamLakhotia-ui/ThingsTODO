@@ -3,12 +3,13 @@ const mongoose = require('mongoose');
 const app = express();
 const multer=require('multer');
 const path=require('path');
-const Query = require('./models/querries');
+// const Query = require('./models/querries');
 const EventModel=require('./models/eventModel');
 const cors = require('cors');
 const User = require('./models/usersignupModels');
 const bodyParser = require('body-parser');
 const BookNow = require('./models/booknowmodel');
+const Query = require('./models/Query');
 
 
 app.use(express.json());
@@ -99,6 +100,40 @@ app.post('/signup', async (req, res) => {
         res.status(500).send({ message: "Internal server error" });
     }
 });
+
+app.post('/submitquery', async (req, res) => {
+    try {
+        const { username, firstName, lastName, email, phoneNumber, query, admin } = req.body;
+
+        // Create a new instance of the Query model using the provided data
+        const newQuery = new Query({ username, firstName, lastName, email, phoneNumber, query, admin });
+
+        // Save the new query to the database
+        await newQuery.save();
+
+        res.status(200).send({ message: "Query submitted successfully!", queryId: newQuery._id });
+    } catch (error) {
+        console.error("Query Submission Error:", error);
+        res.status(400).send(error);
+    }
+});
+
+
+
+app.get('/queries-getall', async (req, res) => {
+    try {
+        // Retrieve all queries from the database
+        const queries = await Query.find();
+
+        // Send the queries as a JSON response
+        res.status(200).json(queries);
+    } catch (error) {
+        console.error("Error fetching queries:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
   
  
   

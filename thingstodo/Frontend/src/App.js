@@ -11,7 +11,7 @@ import AdminLanding from './layouts/Landing/adminLanding';
 import EditPage from './layouts/Landing/edit';
 import AddEventForm from './layouts/Landing/addEvent';
 import Login from './components/LoginPage/login';
-import Contact from './query';
+import QueryForm from './query';
 
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/admin-landing" element={<AdminLanding />} />
-        <Route path="/contact-query" element={< Contact/>} />
+        <Route path="/contact-query" element={< QueryForm/>} />
 
         <Route path="/add-event" element={<AddEventForm />} />
         {/* <Route path="/edit" element={<EditPage />} /> */}
