@@ -11,6 +11,8 @@ import AdminLanding from './layouts/Landing/adminLanding';
 import EditPage from './layouts/Landing/edit';
 import AddEventForm from './layouts/Landing/addEvent';
 import Login from './components/LoginPage/login';
+import QueryForm from './query';
+
 import BookingList from './layouts/Landing/bookingList';
 
 const App = () => {
@@ -26,6 +28,8 @@ console.log("User",user);
         <Route path="/signup" element={<SignUp />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/admin-landing" element={<AdminLanding />} />
+        <Route path="/contact-query" element={< QueryForm/>} />
+
         <Route path="/add-event" element={<AddEventForm />} />
         <Route path="/booking-list" element={<BookingList/>}></Route>
         <Route path="/edit" element={<EditPage />} />
