@@ -16,6 +16,54 @@ import './adminLanding.css';
 // import EditPage from './editEvent';
 
 
+// React Carousel Component
+const Carousel = ({ images }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const goToPrev = () => {
+    setActiveIndex(prevIndex => prevIndex > 0 ? prevIndex - 1 : images.length - 1);
+  };
+
+  const goToNext = () => {
+    setActiveIndex(prevIndex => prevIndex < images.length - 1 ? prevIndex + 1 : 0);
+  };
+
+  return (
+    <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+      <ol className="carousel-indicators">
+        {images.map((_, index) => (
+          <li key={index} data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={index === activeIndex ? 'active' : ''}></li>
+        ))}
+      </ol>
+      <div className="carousel-inner">
+        {images.map((img, index) => (
+          <div key={index} className={`carousel-item ${index === activeIndex ? 'active' : ''}`}>
+            <img className="d-block w-100" src={img.src} alt={`Slide ${index + 1}`} />
+          </div>
+        ))}
+      </div>
+      <button className="carousel-control-prev" type="button" onClick={goToPrev}>
+        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span className="visually-hidden">Previous</span>
+      </button>
+      <button className="carousel-control-next" type="button" onClick={goToNext}>
+        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <span className="visually-hidden">Next</span>
+      </button>
+    </div>
+  );
+};
+
+// Images for the carousel
+const carouselImages = [
+  { src: image1 },
+  { src: image2 },
+  { src: image3 },
+  { src: image4 }
+];
+
+
+
 const AdminLanding = () => {
 
   const [exclusiveExperiences, setExclusiveExperiences] = useState([]);
@@ -127,7 +175,7 @@ const AdminLanding = () => {
 
       {/* Carousel */}
    
-      <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+      {/* <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
         <ol className="carousel-indicators">
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active"></li>
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
@@ -157,7 +205,11 @@ const AdminLanding = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
- 
+  */}
+
+              <Carousel images={carouselImages} />
+
+
       <div className="bg-warning py-4 text-center">
       <span style={{ fontWeight: 'bold', fontSize: '30px' }}>Exclusive Experience by ThingsToDo</span>
       <div className="container">
@@ -204,7 +256,7 @@ const AdminLanding = () => {
         </div>
         <div className="row">
           {exclusiveExperiences.map((service, index) => (
-            <div className="col-12 col-md-12 col-lg-4" key={index}>
+            <div className="col-12 col-md-12 col-lg-4 mb-4" key={index}>
               <div className="card text-light text-center bg-white pb-2 h-100">
                 <div className="card-body text-dark">
                   <div className="img-area mb-4">
@@ -213,15 +265,15 @@ const AdminLanding = () => {
                   <h3 className="card-title">{service.type}</h3>
                   <p className="lead">{service.description}</p>
                   <EditPage 
-  type1={service.type} 
-  description1={service.description} 
-  fetchExclusiveExperiences={fetchExclusiveExperiences} 
-  userId={service.userId}
-/>
+                   type1={service.type} 
+                    description1={service.description} 
+                   fetchExclusiveExperiences={fetchExclusiveExperiences} 
+                    userId={service.userId}
+                  />
 {/*                   
                   <button className="btn bg-warning text-dark" onClick={() => handleEditClick(service)}>Edit</button> */}
                   {/* <button className="btn bg-warning text-dark">Delete</button> */}
-                  <button className="btn bg-warning text-dark" onClick={() => handleDeleteClick(service.userId)}>Delete</button>
+                  <button className="btn" style={{ marginLeft: '20px', backgroundColor:'red', color:'white' }}  onClick={() => handleDeleteClick(service.userId)}>Delete</button>
                 </div>
               </div>
             </div>
@@ -344,9 +396,9 @@ const AdminLanding = () => {
   </div>
 </section>
 
-      <footer className="bg-light p-2 text-center">
+<footer className="bg-light p-2 text-center">
         <div className="container">
-          <p className="text-warning">All Right Reserved By @ThingsToDo</p>
+          <p className="text-warning">All Right Reserved By <span style={{ color: 'black', fontWeight:'bold' }}>@ThingsToDo</span> </p>
         </div>
       </footer>
     </div>
