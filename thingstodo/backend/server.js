@@ -208,14 +208,6 @@ app.get('/queries-getall', async (req, res) => {
     }
 });
 
-
-  
- 
-  
-  
-
-  
-
 app.post('/thingstodo/query', async (req, res) => {
     try {
         const query = await Query.create(req.body);
@@ -264,25 +256,6 @@ app.post('/thingstodo/add-event', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-// app.post('/thingstodo/edit-event', async (req, res) => {
-//     try {
-//         // Find the event by type
-//         const event = await EventModel.findOne({ type: req.body.type });
-
-//         if (!event) {
-//             return res.status(404).json({ message: 'Event not found' });
-//         }
-
-//         // Update event description
-//         event.description = req.body.description;
-
-//         await event.save();
-//         res.status(200).json({ message: 'Event description updated successfully' });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
 app.post('/thingstodo/edit-event', async (req, res) => {
     try {
         const { userId, type, description } = req.body;
@@ -307,7 +280,7 @@ app.post('/thingstodo/edit-event', async (req, res) => {
 });
 
 
-app.delete('/thingstodo/delete-event/:userId', async (req, res) => {
+   app.delete('/thingstodo/delete-event/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
         

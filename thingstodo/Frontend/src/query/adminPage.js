@@ -20,7 +20,7 @@ const AdminQueryPage = () => {
 
   const fetchQueries = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/queries-getall");
+      const response = await axios.get("https://thingstodo-zdio.onrender.com/queries-getall");
       // Filter out queries with flag="false"
       setQueries(response.data.filter(query => query.flag !== "false"));
     } catch (error) {
@@ -52,7 +52,7 @@ const AdminQueryPage = () => {
     //   );
        
       const response = await axios.put(
-        `http://localhost:4000/editQuery`, // Encode the username to ensure URL safety
+        `https://thingstodo-zdio.onrender.com/editQuery`, // Encode the username to ensure URL safety
         payload
       );
    
