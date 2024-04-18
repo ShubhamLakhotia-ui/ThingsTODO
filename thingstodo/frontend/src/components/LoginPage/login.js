@@ -46,7 +46,7 @@ function Login() {
     try {
       const response = await axios.post('http://localhost:4000/login', formData);
       login(response.data); // Assuming response.data contains user data including role info
-  sessionStorage.setItem("user",formData.username);
+      sessionStorage.setItem("user",formData.username);
       if (response.data.userType==="admin") {
         sessionStorage.setItem("userType","admin");
         navigate('/admin-landing');

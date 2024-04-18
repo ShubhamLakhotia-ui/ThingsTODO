@@ -57,6 +57,12 @@ function AddEventPage() {
     }
   };
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('userType');
+    alert("Logout successful!");
+  };
+
   return (
     <div>
      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -93,12 +99,12 @@ function AddEventPage() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/booking-list">
                   Bookings
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login">
+                <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
                 </a>
               </li>
@@ -108,7 +114,7 @@ function AddEventPage() {
       </nav> 
       <Container className="d-flex justify-content-center align-items-center bg-warning" style={{ minHeight: '100vh',minWidth:'100%' }}>
         <div className="p-4 rounded" style={{ backgroundColor: 'white', maxWidth: '500px', width: '100%' }}>
-          <h2 className="mb-4" style={{textAlign:"center"}}>Add Event</h2>
+          <h2 className="mb-4" style={{textAlign:"center"}}>Add <span className='text-warning'>Event</span> </h2>
           {alertVisible && (
             <div className="modal-background">
               <div className={`alert alert-${alertType}`} role="alert">
@@ -162,6 +168,11 @@ function AddEventPage() {
           </Form>
         </div>
       </Container>
+      <footer className="bg-light p-2 text-center">
+        <div className="container">
+          <p className="text-warning">All Right Reserved By @ThingsToDo</p>
+        </div>
+      </footer>
     </div>
   );
 }
