@@ -84,7 +84,7 @@ const AdminLanding = () => {
 
   const handleDeleteClick = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:4000/thingstodo/delete-event/${userId}`, {
+      const response = await fetch(`https://thingstodo-zdio.onrender.com/thingstodo/delete-event/${userId}`, {
         method: 'DELETE',
       });
 
