@@ -74,7 +74,7 @@ const AdminLanding = () => {
 
   const fetchExclusiveExperiences = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/thingstodo/get-all-images');
+      const response = await axios.get('https://thingstodo-zdio.onrender.com/thingstodo/get-all-images');
       setExclusiveExperiences(response.data.images); 
       console.log(exclusiveExperiences)
     } catch (error) {
@@ -148,12 +148,17 @@ const AdminLanding = () => {
                 </a>
               </li>
               <li className="nav-item">
+                <a className="nav-link" href="/admin-dashboard">
+                  Dashboard
+                </a>
+              </li>
+              <li className="nav-item">
                 <a className="nav-link" href="/add-event">
                   Add Event
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/admin-query">
                   Querries
                 </a>
               </li>

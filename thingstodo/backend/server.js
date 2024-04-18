@@ -47,6 +47,16 @@ app.post('/signup', async (req, res) => {
       res.status(400).send(error);
     }
   });
+  app.get('/users', async (req, res) => {
+    try {
+      const users = await User.find();
+      res.status(200).send(users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      res.status(500).send({ error: "Error fetching users" });
+    }
+  });
+  
   
   // Login User
 
@@ -103,10 +113,10 @@ app.post('/signup', async (req, res) => {
 
 app.post('/submitquery', async (req, res) => {
     try {
-        const { username, firstName, lastName, email, phoneNumber, query, admin } = req.body;
+        const { username, firstName, lastName, email, phoneNumber, query, admin,flag } = req.body;
 
         // Create a new instance of the Query model using the provided data
-        const newQuery = new Query({ username, firstName, lastName, email, phoneNumber, query, admin });
+        const newQuery = new Query({ username, firstName, lastName, email, phoneNumber, query, admin ,flag});
 
         // Save the new query to the database
         await newQuery.save();
@@ -117,8 +127,73 @@ app.post('/submitquery', async (req, res) => {
         res.status(400).send(error);
     }
 });
+app.put('/editquery/:username', async (req, res) => {
+    try {
+        const username1 = req.params.username;
+        const { username, firstName, lastName, email, phoneNumber, query, admin, flag } = req.body;
 
+        // Find the query by ID and update its fields
+        const updatedQuery = await Query.findByIdAndUpdate(username1, {
+            username,
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            query,
+            admin,
+            flag
+        }, { new: true }); // Set { new: true } to return the updated document
 
+        if (!updatedQuery) {
+            return res.status(404).send({ message: "Query not found" });
+        }
+
+        res.status(200).send({ message: "Query updated successfully", updatedQuery });
+    } catch (error) {
+        console.error("Error updating query:", error);
+        res.status(400).send({ error: "Error updating query" });
+    }
+});
+
+app.put('/editQuery', async (req, res) => {
+    try {
+        const { username, firstName, lastName, email, phoneNumber, query, admin, flag } = req.body;
+        console.log("req.body",req.body);
+
+        if (Object.keys(req.body).length === 0) {
+            return res.status(400).json({ message: 'Request body is empty' });
+        }
+        const user = await Query.findOne({ username: username });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        user.admin = admin;
+        user.flag=flag;
+        await user.save();
+        res.status(200).json({ message: 'Response updated successfully', user: user });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.delete('/deleteQuery/:username', async (req, res) => {
+    try {
+        const username = req.params.username;
+
+        // Find the query by username and delete it
+        const deletedQuery = await Query.findOneAndDelete({ username });
+
+        if (!deletedQuery) {
+            return res.status(404).json({ message: 'Query not found' });
+        }
+
+        res.status(200).json({ message: 'Query deleted successfully', deletedQuery });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
 
 app.get('/queries-getall', async (req, res) => {
     try {
