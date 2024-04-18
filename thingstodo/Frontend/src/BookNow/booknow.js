@@ -1,144 +1,3 @@
-// import React, { useState } from 'react';
-// import { useLocation } from 'react-router-dom';
-// import './booknow.css'; // Import your CSS file for custom styles
-// // import NavBar from './NavBar'; // Import your NavBar component
-
-// const BookNow = () => {
-//     const location = useLocation();
-//     const [formData, setFormData] = useState({
-//         firstName: '',
-//         lastName: '',
-//         email: '',
-//         phoneNumber: '',
-//         type: location.state.type, // Pre-fill type from the landing page
-//     });
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         console.log(formData);
-//         setFormData({
-//             firstName: '',
-//             lastName: '',
-//             email: '',
-//             phoneNumber: '',
-//             type: '', // Reset type after form submission
-//         });
-//     };
-
-//     const handleInputChange = (e) => {
-//         const { name, value } = e.target;
-//         setFormData({
-//             ...formData,
-//             [name]: value
-//         });
-//     };
-
-//     return (
-//         <div>
-//         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-//           <div className="container">
-//             <a className="navbar-brand" href="#">
-//               <span className="text-warning">Things</span>ToDO
-//             </a>
-//             <button
-//               className="navbar-toggler"
-//               type="button"
-//               data-bs-toggle="collapse"
-//               data-bs-target="#navbarSupportedContent"
-//               aria-controls="navbarSupportedContent"
-//               aria-expanded="false"
-//               aria-label="Toggle navigation"
-//             >
-//               <span className="navbar-toggler-icon"></span>
-//             </button>
-//             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-//               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-//                 <li className="nav-item">
-//                   <a className="nav-link" href="#">
-//                     Home
-//                   </a>
-//                 </li>
-//                 <li className="nav-item">
-//                   <a className="nav-link" href="#">
-//                     About
-//                   </a>
-//                 </li>
-//                 <li className="nav-item">
-//                   <a className="nav-link" href="#">
-//                     Services
-//                   </a>
-//                 </li>
-//                 <li className="nav-item">
-//                   <a className="nav-link" href="#">
-//                     Contact
-//                   </a>
-//                 </li>
-//                 <li className="nav-item">
-//                   <a className="nav-link" href="#">
-//                     Team
-//                   </a>
-//                 </li>
-//                 <li className="nav-item">
-//                   <a className="nav-link" href="/login">
-//                     Logout
-//                   </a>
-//                 </li>
-//               </ul>
-//             </div>
-//           </div>
-//         </nav>
-            
-
-//             <section className="book-now section-padding" id="book-now" style={{ marginTop: '80px', backgroundColor: 'yellow' }}>
-//                 <div className="container">
-//                     <div className="row justify-content-center align-items-center">
-//                         <div className="col-md-6">
-//                             <div className="card">
-//                                 <div className="card-body">
-//                                     <h2 className="card-title text-center">Book Now</h2>
-//                                     <form onSubmit={handleSubmit}>
-//                                         <div className="mb-3">
-//                                             <label htmlFor="firstName" className="form-label">First Name</label>
-//                                             <input type="text" className="form-control" id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
-//                                         </div>
-//                                         <div className="mb-3">
-//                                             <label htmlFor="lastName" className="form-label">Last Name</label>
-//                                             <input type="text" className="form-control" id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
-//                                         </div>
-//                                         <div className="mb-3">
-//                                             <label htmlFor="email" className="form-label">Email</label>
-//                                             <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleInputChange} required />
-//                                         </div>
-//                                         <div className="mb-3">
-//                                             <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
-//                                             <input type="tel" className="form-control" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleInputChange} required />
-//                                         </div>
-//                                         <div className="mb-3">
-//                                             <label htmlFor="type" className="form-label">Type</label>
-//                                             <input type="text" className="form-control" id="type" name="type" value={formData.type} onChange={handleInputChange} required readOnly />
-//                                         </div>
-//                                         <button type="submit" className="btn btn-primary">Book Now</button>
-//                                     </form>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <div className="col-md-6">
-//                             <div className="image-container">
-//                                 <img src={`data:image/png;base64,${location.state.image.data}`} className="rounded mx-auto d-block smaller-image" alt="Experience" />
-//                                 <div className="image-details">
-//                                     <p><strong>Description:</strong> {location.state.description}</p>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-//         </div>
-//     );
-// };
-
-// export default BookNow;
-
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -184,105 +43,97 @@ const BookNow = () => {
             [name]: value
         });
     };
+    const handleLogout = () => {
+      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('userType');
+      alert("Logout successful!");
+    };
 
     return (
         <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div className="container">
-          <a className="navbar-brand" href="#">
-            <span className="text-warning">Things</span>ToDO
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  About
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Services
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Contact
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Team
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/login">
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-            <section className="book-now section-padding" id="book-now" style={{ marginTop: '80px', backgroundColor: 'yellow' }}>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <div className="container">
-                    <div className="row justify-content-center align-items-center">
-                        <div className="col-md-6">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h2 className="card-title text-center">Book Now</h2>
-                                    <form onSubmit={handleSubmit}>
-                                        <div className="mb-3">
-                                            <label htmlFor="firstName" className="form-label">First Name</label>
-                                            <input type="text" className="form-control" id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="lastName" className="form-label">Last Name</label>
-                                            <input type="text" className="form-control" id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="email" className="form-label">Email</label>
-                                            <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleInputChange} required />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
-                                            <input type="tel" className="form-control" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleInputChange} required />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="type" className="form-label">Type</label>
-                                            <input type="text" className="form-control" id="type" name="type" value={formData.type} onChange={handleInputChange} required readOnly />
-                                        </div>
-                                        <button type="submit" className="btn btn-primary">Book Now</button>
-                                    </form>
+                    <a className="navbar-brand" href="#">
+                        <span className="text-warning">Things</span>ToDO
+                    </a>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/landing">
+                                    Home
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/login" onClick={handleLogout}>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div className="bg-warning" style={{height:"100vh"}}>
+                <section className="book-now section-padding" id="book-now" style={{ marginTop: '80px' }}>
+                    <div className="container">
+                        <div className="row justify-content-center align-items-center">
+                            <div className="col-md-6">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h2 className="card-title text-center">Book Now</h2>
+                                        <form onSubmit={handleSubmit}>
+                                            <div className="mb-3">
+                                                <label htmlFor="firstName" className="form-label">First Name</label>
+                                                <input type="text" className="form-control" id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label htmlFor="lastName" className="form-label">Last Name</label>
+                                                <input type="text" className="form-control" id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} required />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label htmlFor="email" className="form-label">Email</label>
+                                                <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleInputChange} required />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                                                <input type="tel" className="form-control" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleInputChange} required />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label htmlFor="type" className="form-label">Type</label>
+                                                <input type="text" className="form-control" id="type" name="type" value={formData.type} onChange={handleInputChange} required readOnly />
+                                            </div>
+                                            <button type="submit" className="btn btn-primary">Book Now</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="image-container">
-                                <img src={`data:image/png;base64,${location.state.image.data}`} className="rounded mx-auto d-block smaller-image" alt="Experience" />
-                                <div className="image-details">
-                                    <p> {location.state.description}</p>
+                            <div className="col-md-6">
+                                <div className="image-container">
+                                    <img src={`data:image/png;base64,${location.state.image.data}`} className="rounded mx-auto d-block smaller-image" alt="Experience" />
+                                    <div className="image-details">
+                                        <p> {location.state.description}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </section>
+            </div>
+            <footer className="bg-light p-2 text-center">
+                <div className="container">
+                    <p className="text-warning">All Right Reserved By @ThingsToDo</p>
                 </div>
-            </section>
+            </footer>
         </div>
     );
 };
