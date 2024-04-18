@@ -1,0 +1,56 @@
+.navbar {
+    background-color: #007bff; /* Bootstrap primary color */
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    color: #fff; /* White color for text */
+  }
+  
+  .navbar-brand:hover {
+    color: #fff; /* White color on hover */
+  }
+  
+  .navbar-nav .nav-link {
+    color: #fff; /* White color for text */
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #f8f9fa; /* Light gray color on hover */
+  }
+  
+  /* Styles for the table */
+  .container {
+    margin-top: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    background-color: #fff; /* White background color for table */
+  }
+  
+  .table th,
+  .table td {
+    text-align: center;
+    vertical-align: middle; /* Center vertically */
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa; /* Light gray background color for odd rows */
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6; /* Gray border for table */
+  }
+  
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #dee2e6; /* Gray border for table cells */
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #e9ecef; /* Light gray background color on hover */
+  }
+  .top{
+    margin-top: 4rem !important;
+}
