@@ -1,0 +1,36 @@
+.add-event-form {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .add-event-form label {
+    display: table-cell;
+    padding: 8px;
+    text-align: right;
+    vertical-align: top;
+  }
+  
+  .add-event-form input,
+  .add-event-form textarea {
+    display: table-cell;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-event-form button {
+    display: table-cell;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-event-form button:hover {
+    background-color: #0056b3;
+  }

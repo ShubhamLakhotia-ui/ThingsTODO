@@ -12,38 +12,118 @@ import image7 from "../../image/date.jpg";
 import image8 from "../../image/at-home.jpg";
 import EditPage from './edit';
 import { Link, useNavigate } from 'react-router-dom';
+import './adminLanding.css';
 // import EditPage from './editEvent';
 
 
+// React Carousel Component
+const Carousel = ({ images }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const goToPrev = () => {
+    setActiveIndex(prevIndex => prevIndex > 0 ? prevIndex - 1 : images.length - 1);
+  };
+
+  const goToNext = () => {
+    setActiveIndex(prevIndex => prevIndex < images.length - 1 ? prevIndex + 1 : 0);
+  };
+
+  return (
+    <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+      <ol className="carousel-indicators">
+        {images.map((_, index) => (
+          <li key={index} data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={index === activeIndex ? 'active' : ''}></li>
+        ))}
+      </ol>
+      <div className="carousel-inner">
+        {images.map((img, index) => (
+          <div key={index} className={`carousel-item ${index === activeIndex ? 'active' : ''}`}>
+            <img className="d-block w-100" src={img.src} alt={`Slide ${index + 1}`} />
+          </div>
+        ))}
+      </div>
+      <button className="carousel-control-prev" type="button" onClick={goToPrev}>
+        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span className="visually-hidden">Previous</span>
+      </button>
+      <button className="carousel-control-next" type="button" onClick={goToNext}>
+        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <span className="visually-hidden">Next</span>
+      </button>
+    </div>
+  );
+};
+
+// Images for the carousel
+const carouselImages = [
+  { src: image1 },
+  { src: image2 },
+  { src: image3 },
+  { src: image4 }
+];
+
+
+
 const AdminLanding = () => {
-  // State to hold exclusive experiences fetched from the API
+
   const [exclusiveExperiences, setExclusiveExperiences] = useState([]);
-//   const [editPageOpen, setEditPageOpen] = useState(false);
- 
-//   const [selectedItem, setSelectedItem] = useState(null);
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success'); 
   const navigate = useNavigate();
-  // Function to fetch exclusive experiences from the API
+
   const fetchExclusiveExperiences = async () => {
     try {
       const response = await axios.get('http://localhost:4000/thingstodo/get-all-images');
       setExclusiveExperiences(response.data.images); 
-      console.log(exclusiveExperiences)// Assuming the API returns an array of exclusive experiences
+      console.log(exclusiveExperiences)
     } catch (error) {
       console.error('Error fetching exclusive experiences:', error);
     }
   };
 
-  // Fetch exclusive experiences when the component mounts
+  const handleDeleteClick = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/thingstodo/delete-event/${userId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+   
+        console.log('Event deleted successfully');
+        setAlertMessage('Event deleted successfully');
+        setAlertType('success');
+        setAlertVisible(true);
+        fetchExclusiveExperiences();
+       
+      } else {
+      
+        console.error('Failed to delete event');
+        setAlertMessage('Failed to delete event');
+        setAlertType('error');
+        setAlertVisible(true);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setAlertMessage('An error occurred while deleting the event');
+      setAlertType('error');
+      setAlertVisible(true);
+    }
+  };
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('userType');
+    alert("Logout successful!");
+  };
+
   useEffect(() => {
     fetchExclusiveExperiences();
   }, []);
 
-//   const handleEditClick = (service) => {
-//     navigate("/edit", { state: { service } });
-//   };
+
   return (
     <div>
-      {/* Navigation */}
+      
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
           <a className="navbar-brand" href="#">
@@ -63,12 +143,12 @@ const AdminLanding = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/admin-landing">
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/add-event">
                   Add Event
                 </a>
               </li>
@@ -78,17 +158,13 @@ const AdminLanding = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/booking-list">
                   Bookings
                 </a>
               </li>
-              {/* <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Team
-                </a>
-              </li> */}
+           
               <li className="nav-item">
-                <a className="nav-link" href="/login">
+                <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
                 </a>
               </li>
@@ -99,7 +175,7 @@ const AdminLanding = () => {
 
       {/* Carousel */}
    
-      <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+      {/* <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
         <ol className="carousel-indicators">
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active"></li>
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
@@ -129,7 +205,11 @@ const AdminLanding = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
- 
+  */}
+
+              <Carousel images={carouselImages} />
+
+
       <div className="bg-warning py-4 text-center">
       <span style={{ fontWeight: 'bold', fontSize: '30px' }}>Exclusive Experience by ThingsToDo</span>
       <div className="container">
@@ -176,7 +256,7 @@ const AdminLanding = () => {
         </div>
         <div className="row">
           {exclusiveExperiences.map((service, index) => (
-            <div className="col-12 col-md-12 col-lg-4" key={index}>
+            <div className="col-12 col-md-12 col-lg-4 mb-4" key={index}>
               <div className="card text-light text-center bg-white pb-2 h-100">
                 <div className="card-body text-dark">
                   <div className="img-area mb-4">
@@ -184,14 +264,30 @@ const AdminLanding = () => {
                   </div>
                   <h3 className="card-title">{service.type}</h3>
                   <p className="lead">{service.description}</p>
-                  <EditPage/>
+                  <EditPage 
+                   type1={service.type} 
+                    description1={service.description} 
+                   fetchExclusiveExperiences={fetchExclusiveExperiences} 
+                    userId={service.userId}
+                  />
 {/*                   
                   <button className="btn bg-warning text-dark" onClick={() => handleEditClick(service)}>Edit</button> */}
-                  <button className="btn bg-warning text-dark">Delete</button>
+                  {/* <button className="btn bg-warning text-dark">Delete</button> */}
+                  <button className="btn" style={{ marginLeft: '20px', backgroundColor:'red', color:'white' }}  onClick={() => handleDeleteClick(service.userId)}>Delete</button>
                 </div>
               </div>
             </div>
           ))}
+         {alertVisible && (
+        <div className="modal-background">
+          <div className="alert-container">
+            <div className={`alert alert-${alertType}`} role="alert">
+              {alertMessage}
+              <button type="button" className="btn-close" aria-label="Close" onClick={() => setAlertVisible(false)}></button>
+            </div>
+          </div>
+        </div>
+      )}
         </div>
       </div>
     </section>
@@ -300,9 +396,9 @@ const AdminLanding = () => {
   </div>
 </section>
 
-      <footer className="bg-light p-2 text-center">
+<footer className="bg-light p-2 text-center">
         <div className="container">
-          <p className="text-warning">All Right Reserved By @ThingsToDo</p>
+          <p className="text-warning">All Right Reserved By <span style={{ color: 'black', fontWeight:'bold' }}>@ThingsToDo</span> </p>
         </div>
       </footer>
     </div>

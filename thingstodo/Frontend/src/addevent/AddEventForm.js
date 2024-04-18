@@ -150,7 +150,13 @@ const AddEventForm = () => {
           </Paper>
         </div>
       </Grid>
+      <footer className="bg-light p-2 text-center">
+        <div className="container">
+          <p className="text-warning">All Right Reserved By @ThingsToDo</p>
+        </div>
+      </footer>
     </Grid>
+    
   );
 };
 

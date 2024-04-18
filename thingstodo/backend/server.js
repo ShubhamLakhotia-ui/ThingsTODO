@@ -3,16 +3,19 @@ const mongoose = require('mongoose');
 const app = express();
 const multer=require('multer');
 const path=require('path');
-const Query = require('./models/querries');
+// const Query = require('./models/querries');
 const EventModel=require('./models/eventModel');
 const cors = require('cors');
 const User = require('./models/usersignupModels');
+const bodyParser = require('body-parser');
 const BookNow = require('./models/booknowmodel');
+const Query = require('./models/Query');
 
 
 app.use(express.json());
 app.use(cors());
-
+// app.use(bodyParser.json({ limit: '20mb' }));
+app.use(bodyParser.json({limit: '100kb'}));
 
 const storage=multer.diskStorage({destination:(req,file,cb)=>{
     cb(null,'Images')
@@ -97,6 +100,40 @@ app.post('/signup', async (req, res) => {
         res.status(500).send({ message: "Internal server error" });
     }
 });
+
+app.post('/submitquery', async (req, res) => {
+    try {
+        const { username, firstName, lastName, email, phoneNumber, query, admin } = req.body;
+
+        // Create a new instance of the Query model using the provided data
+        const newQuery = new Query({ username, firstName, lastName, email, phoneNumber, query, admin });
+
+        // Save the new query to the database
+        await newQuery.save();
+
+        res.status(200).send({ message: "Query submitted successfully!", queryId: newQuery._id });
+    } catch (error) {
+        console.error("Query Submission Error:", error);
+        res.status(400).send(error);
+    }
+});
+
+
+
+app.get('/queries-getall', async (req, res) => {
+    try {
+        // Retrieve all queries from the database
+        const queries = await Query.find();
+
+        // Send the queries as a JSON response
+        res.status(200).json(queries);
+    } catch (error) {
+        console.error("Error fetching queries:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
   
  
   
@@ -152,20 +189,42 @@ app.post('/thingstodo/add-event', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+// app.post('/thingstodo/edit-event', async (req, res) => {
+//     try {
+//         // Find the event by type
+//         const event = await EventModel.findOne({ type: req.body.type });
+
+//         if (!event) {
+//             return res.status(404).json({ message: 'Event not found' });
+//         }
+
+//         // Update event description
+//         event.description = req.body.description;
+
+//         await event.save();
+//         res.status(200).json({ message: 'Event description updated successfully' });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
 app.post('/thingstodo/edit-event', async (req, res) => {
     try {
-        // Find the event by type
-        const event = await EventModel.findOne({ type: req.body.type });
+        const { userId, type, description } = req.body;
+
+        // Find the event by userId
+        const event = await EventModel.findOne({ userId });
 
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        // Update event description
-        event.description = req.body.description;
-
+        // Update type and description
+        event.type = type;
+        event.description = description;
         await event.save();
-        res.status(200).json({ message: 'Event description updated successfully' });
+
+        res.status(200).json({ message: 'Event updated successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -173,46 +232,23 @@ app.post('/thingstodo/edit-event', async (req, res) => {
 });
 
 
-// app.post('/thingstodo/edit-event', async (req, res) => {
-//     try {
-//         upload(req, res, async (err) => {
-//             if (err) {
-//                 console.error(err);
-//                 return res.status(400).json({ message: 'Error uploading image' });
-//             }
+app.delete('/thingstodo/delete-event/:userId', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        
+        // Assuming EventModel is your Mongoose model for events
+        const deletedEvents = await EventModel.deleteMany({ userId: userId });
 
-//             if (!req.file) {
-//                 return res.status(400).json({ message: 'No image file provided' });
-//             }
-//             const fs = require('fs');
-//             const imageBuffer = fs.readFileSync(req.file.path);
-//             const base64Image = imageBuffer.toString('base64');
+        if (deletedEvents.deletedCount === 0) {
+            return res.status(404).json({ message: `No events found with type ${userId}` });
+        }
 
-//             // Find the event by type
-//             const event = await EventModel.findOne({ type: req.body.type });
-
-//             if (!event) {
-//                 return res.status(404).json({ message: 'Event not found' });
-//             }
-
-//             // Update event data
-//             event.userId = req.body.userId;
-//             event.type = req.body.type;
-//             event.description = req.body.description;
-//             event.image = {
-//                 data: base64Image,
-//                 contentType: 'image/png'
-//             };
-
-//             await event.save();
-//             res.status(200).json({ message: 'Event updated successfully' });
-//         });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
-
+        res.status(200).json({ message: `Deleted ${deletedEvents.deletedCount} event(s) with type ${userId}` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
 
 app.get('/thingstodo/get-all-images', async (req, res) => {
