@@ -1,0 +1,15 @@
+.image-container {
+    max-width: 300px; /* Adjust the max-width to your preference */
+    margin: 0 auto;
+    overflow: hidden; /* Ensure the image doesn't overflow its container */
+  }
+  
+  .smaller-image {
+    width: 100%; /* Ensure the image takes the full width of its container */
+    transition: transform 0.3s ease; /* Smooth transition effect */
+  }
+  
+  .smaller-image:hover {
+    transform: scale(0.9); /* Scale the image down slightly on hover */
+  }
+  

@@ -7,11 +7,14 @@ const Query = require('./models/querries');
 const EventModel=require('./models/eventModel');
 const cors = require('cors');
 const User = require('./models/usersignupModels');
+const bodyParser = require('body-parser');
+const BookNow = require('./models/booknowmodel');
 
 
 app.use(express.json());
 app.use(cors());
-
+// app.use(bodyParser.json({ limit: '20mb' }));
+app.use(bodyParser.json({limit: '100kb'}));
 
 const storage=multer.diskStorage({destination:(req,file,cb)=>{
     cb(null,'Images')
@@ -64,6 +67,43 @@ app.post('/signup', async (req, res) => {
     }
   });
 
+//   const express = require('express');
+//   const router = express.Router();
+//   const BookNow = require('./bookNowSchema');
+  
+  app.post('/booknow', async (req, res) => {
+      try {
+          const { firstName, lastName, email, phoneNumber, type } = req.body;
+  
+          // Create a new instance of the BookNow model using the provided data
+          const newBooking = new BookNow({ firstName, lastName, email, phoneNumber, type });
+  
+          // Save the new booking to the database
+          await newBooking.save();
+  
+          res.status(200).send({ message: "Booking created successfully!", bookingId: newBooking._id });
+      } catch (error) {
+          console.error("Booking Error:", error);
+          res.status(400).send(error);
+      }
+  });
+
+  app.get('/booknow-getall', async (req, res) => {
+    try {
+        // Fetch all bookings from the database
+        const bookings = await BookNow.find();
+
+        res.status(200).send(bookings);
+    } catch (error) {
+        console.error("Error fetching bookings:", error);
+        res.status(500).send({ message: "Internal server error" });
+    }
+});
+  
+ 
+  
+  
+
   
 
 app.post('/thingstodo/query', async (req, res) => {
@@ -109,6 +149,66 @@ app.post('/thingstodo/add-event', async (req, res) => {
             await newImage.save();
             res.status(200).json({ message: 'Image uploaded successfully' });
         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+// app.post('/thingstodo/edit-event', async (req, res) => {
+//     try {
+//         // Find the event by type
+//         const event = await EventModel.findOne({ type: req.body.type });
+
+//         if (!event) {
+//             return res.status(404).json({ message: 'Event not found' });
+//         }
+
+//         // Update event description
+//         event.description = req.body.description;
+
+//         await event.save();
+//         res.status(200).json({ message: 'Event description updated successfully' });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+app.post('/thingstodo/edit-event', async (req, res) => {
+    try {
+        const { userId, type, description } = req.body;
+
+        // Find the event by userId
+        const event = await EventModel.findOne({ userId });
+
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
+        // Update type and description
+        event.type = type;
+        event.description = description;
+        await event.save();
+
+        res.status(200).json({ message: 'Event updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+app.delete('/thingstodo/delete-event/:userId', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        
+        // Assuming EventModel is your Mongoose model for events
+        const deletedEvents = await EventModel.deleteMany({ userId: userId });
+
+        if (deletedEvents.deletedCount === 0) {
+            return res.status(404).json({ message: `No events found with type ${userId}` });
+        }
+
+        res.status(200).json({ message: `Deleted ${deletedEvents.deletedCount} event(s) with type ${userId}` });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
