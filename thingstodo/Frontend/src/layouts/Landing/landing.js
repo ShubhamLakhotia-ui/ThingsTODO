@@ -153,7 +153,7 @@ const Landing = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login" onClick={handleLogout}>
+                <a className="nav-link" href="/" onClick={handleLogout}>
                   Logout
                 </a>
               </li>

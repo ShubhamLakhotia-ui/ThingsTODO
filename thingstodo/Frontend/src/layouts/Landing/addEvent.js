@@ -104,10 +104,10 @@ function AddEventPage() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login" onClick={handleLogout}>
-                  Logout
-                </a>
-              </li>
+                                <a className="nav-link" href="/" onClick={handleLogout}>
+                                    Logout
+                                </a>
+                            </li>
             </ul>
           </div>
         </div>
