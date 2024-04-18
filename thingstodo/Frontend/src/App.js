@@ -9,6 +9,7 @@ import Booknow from './BookNow/booknow';
 // import AdminLanding from './adminhome/adminhomepage';
 import AdminLanding from './layouts/Landing/adminLanding';
 import EditPage from './layouts/Landing/edit';
+import AddEventForm from './layouts/Landing/addEvent';
 import Login from './components/LoginPage/login';
 import Contact from './query';
 
@@ -28,6 +29,8 @@ const App = () => {
         <Route path="/admin-landing" element={<AdminLanding />} />
         <Route path="/contact-query" element={< Contact/>} />
 
+        <Route path="/add-event" element={<AddEventForm />} />
+        {/* <Route path="/edit" element={<EditPage />} /> */}
        
         <Route path="/" element={
           !user ? (
