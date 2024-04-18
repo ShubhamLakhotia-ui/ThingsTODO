@@ -10,6 +10,7 @@ import Booknow from './BookNow/booknow';
 import AdminLanding from './layouts/Landing/adminLanding';
 import EditPage from './layouts/Landing/edit';
 import Login from './components/LoginPage/login';
+import Contact from './query';
 
 
 const App = () => {
@@ -25,6 +26,8 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/admin-landing" element={<AdminLanding />} />
+        <Route path="/contact-query" element={< Contact/>} />
+
        
         <Route path="/" element={
           !user ? (
