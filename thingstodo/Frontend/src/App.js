@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { useUser } from './components/context/UserContext'; // Adjust the path if necessary
+import { useUser } from './components/context/UserContext';
 
 import SignUp from './components/SignUp/signup';
 import Landing from './layouts/Landing/landing';
@@ -32,7 +32,7 @@ console.log("User",user);
 
         <Route path="/add-event" element={<AddEventForm />} />
         <Route path="/booking-list" element={<BookingList/>}></Route>
-        {/* <Route path="/edit" element={<EditPage />} /> */}
+        <Route path="/edit" element={<EditPage />} />
        
         <Route path="/" element={
           !user ? (
@@ -45,8 +45,6 @@ console.log("User",user);
               )
             )
           }/>
-        
-        {/* Define routes for adminnavbar, usernavbar, and any other routes */}
       </Routes>
     </Router>
   );
