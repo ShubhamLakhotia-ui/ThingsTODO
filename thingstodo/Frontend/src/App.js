@@ -11,11 +11,11 @@ import AdminLanding from './layouts/Landing/adminLanding';
 import EditPage from './layouts/Landing/edit';
 import AddEventForm from './layouts/Landing/addEvent';
 import Login from './components/LoginPage/login';
-
+import BookingList from './layouts/Landing/bookingList';
 
 const App = () => {
   const { user } = useUser();
-
+console.log("User",user);
   return (
     <Router>
       <Routes>
@@ -27,6 +27,7 @@ const App = () => {
         <Route path="/landing" element={<Landing />} />
         <Route path="/admin-landing" element={<AdminLanding />} />
         <Route path="/add-event" element={<AddEventForm />} />
+        <Route path="/booking-list" element={<BookingList/>}></Route>
         {/* <Route path="/edit" element={<EditPage />} /> */}
        
         <Route path="/" element={
@@ -34,7 +35,7 @@ const App = () => {
             <Navigate to="/login" />
           ) : (
               user.isAdmin ? (
-                <Navigate to="/adminnavbar" />
+                <Navigate to="/admin-landing" />
               ) : (
                 <Navigate to="/usernavbar" />
               )
