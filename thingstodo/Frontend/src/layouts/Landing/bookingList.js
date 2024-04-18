@@ -16,6 +16,12 @@ const BookingList = () => {
             console.error("Error fetching images:", error);
           });
       },[]);
+
+      const handleLogout = () => {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('userType');
+        alert("Logout successful!");
+      };
   return (
     <div>
          <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
@@ -57,7 +63,7 @@ const BookingList = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login">
+                <a className="nav-link" href="/login"  onClick={handleLogout}>
                   Logout
                 </a>
               </li>
@@ -66,33 +72,6 @@ const BookingList = () => {
         </div>
       </nav>
 
-      {/* <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container">
-          <Link className="navbar-brand" to="/home">Home</Link>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/about">About</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/job-listings">Job Listing</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contact">Contact Us</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/companies">Companies</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={handleLogout} style={{ color: '#FFA500' }}>Logout</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav> */}
       <div className="container mt-5" style={{marginTop:"5rem !important"}}>
         <h1 className="text-center mb-4">Booking<span className="text-warning"> Listing</span> </h1>
         {bookings.map(job => (
@@ -107,6 +86,11 @@ const BookingList = () => {
           </div>
         ))}
       </div>
+      <footer className="bg-light p-2 text-center">
+                <div className="container">
+                    <p className="text-warning">All Right Reserved By @ThingsToDo</p>
+                </div>
+            </footer>
     </div>
   )
 }
