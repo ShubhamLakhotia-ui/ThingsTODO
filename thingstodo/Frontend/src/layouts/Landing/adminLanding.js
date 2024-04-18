@@ -17,21 +17,18 @@ import './adminLanding.css';
 
 
 const AdminLanding = () => {
-  // State to hold exclusive experiences fetched from the API
+
   const [exclusiveExperiences, setExclusiveExperiences] = useState([]);
-//   const [editPageOpen, setEditPageOpen] = useState(false);
- 
-//   const [selectedItem, setSelectedItem] = useState(null);
-const [alertVisible, setAlertVisible] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('success'); 
   const navigate = useNavigate();
-  // Function to fetch exclusive experiences from the API
+
   const fetchExclusiveExperiences = async () => {
     try {
       const response = await axios.get('http://localhost:4000/thingstodo/get-all-images');
       setExclusiveExperiences(response.data.images); 
-      console.log(exclusiveExperiences)// Assuming the API returns an array of exclusive experiences
+      console.log(exclusiveExperiences)
     } catch (error) {
       console.error('Error fetching exclusive experiences:', error);
     }
@@ -44,15 +41,15 @@ const [alertVisible, setAlertVisible] = useState(false);
       });
 
       if (response.ok) {
-        // Handle success
+   
         console.log('Event deleted successfully');
         setAlertMessage('Event deleted successfully');
         setAlertType('success');
         setAlertVisible(true);
         fetchExclusiveExperiences();
-        // Optionally, you can refresh the list of exclusive experiences
+       
       } else {
-        // Handle error
+      
         console.error('Failed to delete event');
         setAlertMessage('Failed to delete event');
         setAlertType('error');
@@ -65,18 +62,20 @@ const [alertVisible, setAlertVisible] = useState(false);
       setAlertVisible(true);
     }
   };
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('userType');
+    alert("Logout successful!");
+  };
 
-  // Fetch exclusive experiences when the component mounts
   useEffect(() => {
     fetchExclusiveExperiences();
   }, []);
 
-//   const handleEditClick = (service) => {
-//     navigate("/edit", { state: { service } });
-//   };
+
   return (
     <div>
-      {/* Navigation */}
+      
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
           <a className="navbar-brand" href="#">
@@ -111,17 +110,13 @@ const [alertVisible, setAlertVisible] = useState(false);
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/booking-list">
                   Bookings
                 </a>
               </li>
-              {/* <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Team
-                </a>
-              </li> */}
+           
               <li className="nav-item">
-                <a className="nav-link" href="/login">
+                <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
                 </a>
               </li>
