@@ -74,7 +74,7 @@ const AdminLanding = () => {
 
   const fetchExclusiveExperiences = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/thingstodo/get-all-images');
+      const response = await axios.get('https://thingstodo-zdio.onrender.com/thingstodo/get-all-images');
       setExclusiveExperiences(response.data.images); 
       console.log(exclusiveExperiences)
     } catch (error) {
