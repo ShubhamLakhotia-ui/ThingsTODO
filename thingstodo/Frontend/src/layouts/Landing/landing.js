@@ -12,21 +12,77 @@ import image6 from "../../image/hbd.jpg";
 import image7 from "../../image/date.jpg";
 import image8 from "../../image/at-home.jpg";
 import { useNavigate } from 'react-router-dom';
+
+
+
+// React Carousel Component
+const Carousel = ({ images }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const goToPrev = () => {
+    setActiveIndex(prevIndex => prevIndex > 0 ? prevIndex - 1 : images.length - 1);
+  };
+
+  const goToNext = () => {
+    setActiveIndex(prevIndex => prevIndex < images.length - 1 ? prevIndex + 1 : 0);
+  };
+
+  return (
+    <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+      <ol className="carousel-indicators">
+        {images.map((_, index) => (
+          <li key={index} data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={index === activeIndex ? 'active' : ''}></li>
+        ))}
+      </ol>
+      <div className="carousel-inner">
+        {images.map((img, index) => (
+          <div key={index} className={`carousel-item ${index === activeIndex ? 'active' : ''}`}>
+            <img className="d-block w-100" src={img.src} alt={`Slide ${index + 1}`} />
+          </div>
+        ))}
+      </div>
+      <button className="carousel-control-prev" type="button" onClick={goToPrev}>
+        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span className="visually-hidden">Previous</span>
+      </button>
+      <button className="carousel-control-next" type="button" onClick={goToNext}>
+        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <span className="visually-hidden">Next</span>
+      </button>
+    </div>
+  );
+};
+
 const Landing = () => {
   const [exclusiveExperiences, setExclusiveExperiences] = useState([]);
-const navigate=useNavigate();
+  const navigate = useNavigate();
+
   const fetchExclusiveExperiences = async () => {
     try {
       const response = await axios.get('https://thingstodo-zdio.onrender.com/thingstodo/get-all-images');
-      setExclusiveExperiences(response.data.images); 
+      setExclusiveExperiences(response.data.images);
     } catch (error) {
       console.error('Error fetching exclusive experiences:', error);
     }
   };
 
+
+
+
+
   useEffect(() => {
     fetchExclusiveExperiences();
   }, []);
+
+  // Images for the carousel
+  const carouselImages = [
+    { src: image1 },
+    { src: image2 },
+    { src: image3 },
+    { src: image4 }
+  ];
+
+
   const handleLogout = () => {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('userType');
@@ -106,7 +162,7 @@ const navigate=useNavigate();
         </div>
       </nav>
 
-      <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+      {/* <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
         <ol className="carousel-indicators">
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active"></li>
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
@@ -135,7 +191,11 @@ const navigate=useNavigate();
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Next</span>
         </button>
-      </div>
+      </div> */}
+
+          <Carousel images={carouselImages} />
+
+      
       <div className="bg-warning py-4 text-center" id="exclusiveExperienceSection">
       <span style={{ fontWeight: 'bold', fontSize: '30px' }}>Exclusive Experience by ThingsToDo</span>
       <div className="container">
@@ -317,7 +377,7 @@ const navigate=useNavigate();
 
       <footer className="bg-light p-2 text-center">
         <div className="container">
-          <p className="text-warning">All Right Reserved By @ThingsToDo</p>
+          <p className="text-warning">All Right Reserved By <span style={{ color: 'black', fontWeight:'bold' }}>@ThingsToDo</span> </p>
         </div>
       </footer>
     </div>
