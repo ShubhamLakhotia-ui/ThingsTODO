@@ -75,7 +75,7 @@ const BookNow = () => {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/" onClick={handleLogout}>
+                                <a className="nav-link" href="/login" onClick={handleLogout}>
                                     Logout
                                 </a>
                             </li>
