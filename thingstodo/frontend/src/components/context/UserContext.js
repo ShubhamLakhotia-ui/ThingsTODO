@@ -14,7 +14,8 @@ export const UserProvider = ({ children }) => {
 
     const logout = () => {
         setUser(null);
-        localStorage.removeItem('user'); // Clear user data from localStorage
+        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
     };
 
     const isAdmin = user ? user.isAdmin : false;

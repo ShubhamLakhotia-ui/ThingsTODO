@@ -7,7 +7,6 @@ import image1 from '../../image/O6XzLOum4NKKMfZZNstpiKnUJRsC6yrgaRBRFgWf.webp';
 import image2 from '../../image/MXrpSCMtviJrXwsIrJzYKn1lDxODtLILJc3Ahtxp.webp';
 import image3 from '../../image/mzTGePUGW8N0xQoD0aT6UosoRudmneTQ65Tr2pAG.webp';
 import image4 from '../../image/gbpUhoB7rp6JWE2HN4pn0OCGgnUDVuGwFAQUOlkq.webp';
-import image5 from "../../image/adventure.jpg";
 import { useNavigate } from 'react-router-dom';
 const Landing = () => {
   const [exclusiveExperiences, setExclusiveExperiences] = useState([]);
@@ -24,7 +23,10 @@ const navigate=useNavigate();
   useEffect(() => {
     fetchExclusiveExperiences();
   }, []);
-
+  const handleLogout = () => {
+    sessionStorage.removeItem('user')
+    alert("Logout successful!");
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -71,7 +73,7 @@ const navigate=useNavigate();
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login">
+                <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
                 </a>
               </li>
@@ -89,13 +91,13 @@ const navigate=useNavigate();
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block" src={image1} alt="First slide"  />
+            <img className="d-block" src={image1} alt="First slide"/>
           </div>
           <div className="carousel-item">
-            <img className="d-block" src={image2} alt="Second slide"  />
+            <img className="d-block" src={image2} alt="Second slide"/>
           </div>
           <div className="carousel-item">
-            <img className="d-block" src={image3} alt="Third slide"  />
+            <img className="d-block" src={image3} alt="Third slide"/>
           </div>
           <div className="carousel-item">
             <img className="d-block" src={image4} alt="Fourth slide"/>

@@ -111,7 +111,7 @@ const [alertVisible, setAlertVisible] = useState(false);
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/booking-list">
                   Bookings
                 </a>
               </li>
