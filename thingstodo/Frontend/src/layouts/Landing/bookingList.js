@@ -8,7 +8,7 @@ const BookingList = () => {
 
     useEffect(() => {
         axios
-          .get("http://localhost:4000/booknow-getall")
+          .get("https://thingstodo-zdio.onrender.com/booknow-getall")
           .then((response) => {
             setBookings(response.data);
           })
@@ -24,7 +24,7 @@ const BookingList = () => {
       };
   return (
     <div>
-         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
           <a className="navbar-brand" href="#">
             <span className="text-warning">Things</span>ToDO
@@ -48,12 +48,17 @@ const BookingList = () => {
                 </a>
               </li>
               <li className="nav-item">
+                <a className="nav-link" href="/admin-dashboard">
+                  Dashboard
+                </a>
+              </li>
+              <li className="nav-item">
                 <a className="nav-link" href="/add-event">
                   Add Event
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+              <a className="nav-link" href="/admin-query">
                   Querries
                 </a>
               </li>
@@ -62,8 +67,9 @@ const BookingList = () => {
                   Bookings
                 </a>
               </li>
+           
               <li className="nav-item">
-                <a className="nav-link" href="/login"  onClick={handleLogout}>
+                <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
                 </a>
               </li>

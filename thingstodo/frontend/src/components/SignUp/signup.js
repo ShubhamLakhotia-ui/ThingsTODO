@@ -46,7 +46,7 @@ function SignUp() {
       }
       try {
         // Assuming the API endpoint for signup is correctly set to accept these parameters
-        const response = await axios.post('http://localhost:4000/signup', {
+        const response = await axios.post('https://thingstodo-zdio.onrender.com/signup', {
           username: formData.username,
           email: formData.email,
           address: formData.address,
