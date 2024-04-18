@@ -583,7 +583,7 @@ const QueryForm = () => {
 
   const handleReset = async () => {
     try {
-      const response = await axios.delete(`https://thingstodo-zdio.onrender.com/${formData.username}`);
+      const response = await axios.delete(`https://thingstodo-zdio.onrender.com/deleteQuery/${formData.username}`);
       console.log("Query deleted successfully:", response.data);
       alert("Form Reset");
       fetchQueries();
