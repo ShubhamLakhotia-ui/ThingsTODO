@@ -8,7 +8,7 @@ const BookingList = () => {
 
     useEffect(() => {
         axios
-          .get("http://localhost:4000/booknow-getall")
+          .get("https://thingstodo-zdio.onrender.com/booknow-getall")
           .then((response) => {
             setBookings(response.data);
           })

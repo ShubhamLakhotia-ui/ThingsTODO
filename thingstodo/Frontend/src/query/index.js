@@ -538,7 +538,7 @@ const QueryForm = () => {
   };
   const fetchQueries = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/queries-getall");
+      const response = await axios.get("https://thingstodo-zdio.onrender.com/queries-getall");
       const matchingQuery = response.data.find((query) => query.username === formData.username);
       if (matchingQuery) {
         setFormData({
@@ -562,7 +562,7 @@ const QueryForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/submitquery",
+        "https://thingstodo-zdio.onrender.com/submitquery",
         formData
       );
 
@@ -583,7 +583,7 @@ const QueryForm = () => {
 
   const handleReset = async () => {
     try {
-      const response = await axios.delete(`http://localhost:4000/deleteQuery/${formData.username}`);
+      const response = await axios.delete(`https://thingstodo-zdio.onrender.com/${formData.username}`);
       console.log("Query deleted successfully:", response.data);
       alert("Form Reset");
       fetchQueries();

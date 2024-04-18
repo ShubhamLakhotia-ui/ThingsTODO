@@ -28,7 +28,7 @@ function AddEventPage() {
       formData.append('description', description);
       formData.append('image', image);
 
-      const response = await fetch('http://localhost:4000/thingstodo/add-event', {
+      const response = await fetch('https://thingstodo-zdio.onrender.com/thingstodo/add-event', {
         method: 'POST',
         body: formData
       });
