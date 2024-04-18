@@ -8,13 +8,16 @@ import image2 from '../../image/MXrpSCMtviJrXwsIrJzYKn1lDxODtLILJc3Ahtxp.webp';
 import image3 from '../../image/mzTGePUGW8N0xQoD0aT6UosoRudmneTQ65Tr2pAG.webp';
 import image4 from '../../image/gbpUhoB7rp6JWE2HN4pn0OCGgnUDVuGwFAQUOlkq.webp';
 import image5 from "../../image/adventure.jpg";
+import image6 from "../../image/hbd.jpg";
+import image7 from "../../image/date.jpg";
+import image8 from "../../image/at-home.jpg";
 import { useNavigate } from 'react-router-dom';
 const Landing = () => {
   const [exclusiveExperiences, setExclusiveExperiences] = useState([]);
 const navigate=useNavigate();
   const fetchExclusiveExperiences = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/thingstodo/get-all-images');
+      const response = await axios.get('https://thingstodo-zdio.onrender.com/thingstodo/get-all-images');
       setExclusiveExperiences(response.data.images); 
     } catch (error) {
       console.error('Error fetching exclusive experiences:', error);
@@ -24,7 +27,30 @@ const navigate=useNavigate();
   useEffect(() => {
     fetchExclusiveExperiences();
   }, []);
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('userType');
+    alert("Logout successful!");
+  };
 
+  const handleAboutClick = () => {
+    const exclusiveExperienceSection = document.getElementById('exclusiveExperienceSection');
+    if (exclusiveExperienceSection) {
+      exclusiveExperienceSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const handleServiceClick = () => {
+    const portfolio = document.getElementById('portfolio');
+    if (portfolio) {
+      portfolio.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const handleTeamClick = () => {
+    const team = document.getElementById('team');
+    if (team) {
+      team.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -51,12 +77,12 @@ const navigate=useNavigate();
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="#" onClick={handleAboutClick}>
                   About
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="#" onClick={handleServiceClick}>
                   Services
                 </a>
               </li>
@@ -65,13 +91,13 @@ const navigate=useNavigate();
                   Contact
                 </a>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" onClick={handleTeamClick}>
                 <a className="nav-link" href="#">
                   Team
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login">
+                <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
                 </a>
               </li>
@@ -89,13 +115,13 @@ const navigate=useNavigate();
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block" src={image1} alt="First slide"  />
+            <img className="d-block" src={image1} alt="First slide"/>
           </div>
           <div className="carousel-item">
-            <img className="d-block" src={image2} alt="Second slide"  />
+            <img className="d-block" src={image2} alt="Second slide"/>
           </div>
           <div className="carousel-item">
-            <img className="d-block" src={image3} alt="Third slide"  />
+            <img className="d-block" src={image3} alt="Third slide"/>
           </div>
           <div className="carousel-item">
             <img className="d-block" src={image4} alt="Fourth slide"/>
@@ -110,8 +136,38 @@ const navigate=useNavigate();
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-
-      <section className="portfolio section-padding" id="portfolio" style={{ marginTop: '20px' }}>
+      <div className="bg-warning py-4 text-center" id="exclusiveExperienceSection">
+      <span style={{ fontWeight: 'bold', fontSize: '30px' }}>Exclusive Experience by ThingsToDo</span>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-auto" style={{ marginTop: '60px', position: 'relative' }}>
+            <div>
+              <img src={image5} className="rounded mx-auto d-block" alt="Adventure" />
+              <p style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>Adventure</p>
+            </div>
+          </div>
+          <div className="col-auto" style={{ marginTop: '60px', position: 'relative' }}>
+            <div>
+              <img src={image6} className="rounded mx-auto d-block" alt="Birthday" />
+              <p style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>Birthday</p>
+            </div>
+          </div>
+          <div className="col-auto" style={{ marginTop: '60px', position: 'relative' }}>
+            <div>
+              <img src={image7} className="rounded mx-auto d-block" alt="Date Nights" />
+              <p style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>Date Nights</p>
+            </div>
+          </div>
+          <div className="col-auto" style={{ marginTop: '60px', position: 'relative' }}>
+            <div>
+              <img src={image8} className="rounded mx-auto d-block" alt="At Home" />
+              <p style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>At Home</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <section className="portfolio section-padding" id="portfolio" style={{ marginTop: '20px' }} >
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -155,38 +211,109 @@ const navigate=useNavigate();
       </section>
 
       <section className="team section-padding" id="team" style={{ marginTop: '20px', marginBottom: '20px' }}>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="section-header text-center pb-5">
-                <h2>Meet Our Team Memebers</h2>
-                <p>
-                  At the heart of every event management team is the event manager, the mastermind behind the entire operation.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            <div className="col">
-              <div className="card h-100 text-center">
-                <div className="card-body d-flex flex-column justify-content-between" style={{ height: '400px', overflowY: 'auto' }}>
-                  <img alt="" className="img-fluid rounded-circle mb-3" src="img/team-1.jpg" />
-                  <h3 className="card-title">Creative Director</h3>
-                  <p className="card-text">
-                    The creative director is the visionary responsible for transforming ideas into tangible and awe-inspiring realities. They infuse events with creativity and innovation, crafting immersive environments that transport attendees to different worlds.
-                  </p>
-                  <div className="socials">
-                    <i className="bi bi-twitter text-dark mx-1"></i>
-                    <i className="bi bi-facebook text-dark mx-1"></i>
-                    <i className="bi bi-linkedin text-dark mx-1"></i>
-                    <i className="bi bi-instagram text-dark mx-1"></i>
-                  </div>
-                </div>
-              </div>
+  <div className="container">
+    <div className="row">
+      <div className="col-md-12">
+        <div className="section-header text-center pb-5">
+          <h2>Meet Our Team Memebers</h2>
+          <p>
+            At the heart of every event management team is the event manager, the mastermind behind the entire operation.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+   
+      <div className="col">
+        <div className="card h-100 text-center">
+          <div className="card-body d-flex flex-column justify-content-between" style={{ height: '400px', overflowY: 'auto' }}>
+            <img alt="" className="img-fluid rounded-circle mb-3" src="img/team-1.jpg" />
+            <h3 className="card-title">Creative Director</h3>
+            <p className="card-text">
+              The creative director is the visionary responsible for transforming ideas into tangible and awe-inspiring realities. They infuse events with creativity and innovation, crafting immersive environments that transport attendees to different worlds.
+            </p>
+            <div className="socials">
+              <i className="bi bi-twitter text-dark mx-1"></i>
+              <i className="bi bi-facebook text-dark mx-1"></i>
+              <i className="bi bi-linkedin text-dark mx-1"></i>
+              <i className="bi bi-instagram text-dark mx-1"></i>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+      <div className="col">
+        <div className="card h-100 text-center">
+          <div className="card-body d-flex flex-column justify-content-between" style={{ height: '400px', overflowY: 'auto' }}>
+            <img alt="" className="img-fluid rounded-circle mb-3" src="img/team-1.jpg" />
+            <h3 className="card-title">Production Operations</h3>
+            <p className="card-text">
+            The creative director is the visionary responsible for transforming ideas into tangible and awe-inspiring realities. They infuse events with creativity and innovation, crafting immersive environments that transport attendees to different worlds.
+            </p>
+            <div className="socials">
+              <i className="bi bi-twitter text-dark mx-1"></i>
+              <i className="bi bi-facebook text-dark mx-1"></i>
+              <i className="bi bi-linkedin text-dark mx-1"></i>
+              <i className="bi bi-instagram text-dark mx-1"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="col">
+        <div className="card h-100 text-center">
+          <div className="card-body d-flex flex-column justify-content-between" style={{ height: '400px', overflowY: 'auto' }}>
+            <img alt="" className="img-fluid rounded-circle mb-3" src="img/team-1.jpg" />
+            <h3 className="card-title">Technical Manager</h3>
+            <p className="card-text">
+            Behind the scenes, a technical wizard ensures that the audio, lighting, and video production aspects of a major event run flawlessly.
+            </p>
+            <div className="socials">
+              <i className="bi bi-twitter text-dark mx-1"></i>
+              <i className="bi bi-facebook text-dark mx-1"></i>
+              <i className="bi bi-linkedin text-dark mx-1"></i>
+              <i className="bi bi-instagram text-dark mx-1"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="col">
+        <div className="card h-100 text-center">
+          <div className="card-body d-flex flex-column justify-content-between" style={{ height: '400px', overflowY: 'auto' }}>
+            <img alt="" className="img-fluid rounded-circle mb-3" src="img/team-1.jpg" />
+            <h3 className="card-title">Venue Manager</h3>
+            <p className="card-text">
+            The venue serves as the canvas on which the event’s narrative unfolds. The venue manager is responsible for overseeing every aspect of the event space, ensuring that it is transformed into a captivating setting.
+            </p>
+            <div className="socials">
+              <i className="bi bi-twitter text-dark mx-1"></i>
+              <i className="bi bi-facebook text-dark mx-1"></i>
+              <i className="bi bi-linkedin text-dark mx-1"></i>
+              <i className="bi bi-instagram text-dark mx-1"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="col">
+        <div className="card h-100 text-center" style={{alignItems:"center"}}>
+          <div className="card-body d-flex flex-column justify-content-between" style={{ height: '400px', overflowY: 'auto' }}>
+            <img alt="" className="img-fluid rounded-circle mb-3" src="img/team-1.jpg" />
+            <h3 className="card-title">Venue Manager</h3>
+            <p className="card-text">
+            The venue serves as the canvas on which the event’s narrative unfolds. The venue manager is responsible for overseeing every aspect of the event space, ensuring that it is transformed into a captivating setting.
+            </p>
+            <div className="socials">
+              <i className="bi bi-twitter text-dark mx-1"></i>
+              <i className="bi bi-facebook text-dark mx-1"></i>
+              <i className="bi bi-linkedin text-dark mx-1"></i>
+              <i className="bi bi-instagram text-dark mx-1"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Repeat the same structure for other team members */}
+    </div>
+  </div>
+</section>
 
       <footer className="bg-light p-2 text-center">
         <div className="container">
