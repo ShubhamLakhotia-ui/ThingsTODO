@@ -241,7 +241,7 @@ const Landing = () => {
           </div>
           <div className="row">
             {exclusiveExperiences.map((service, index) => (
-              <div className="col-12 col-md-12 col-lg-4" key={index}>
+              <div className="col-12 col-md-12 col-lg-4 mb-4" key={index}>
                 <div className="card text-light text-center bg-white pb-2 h-100">
                   <div className="card-body text-dark">
                     <div className="img-area mb-4">
