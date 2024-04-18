@@ -15,10 +15,10 @@ const BookNow = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        https://thingstodo-zdio.onrender.com
         try {
             // Make a POST request to the backend API
-            const response = await axios.post('http://localhost:4000/booknow', formData);
+            const response = await axios.post('https://thingstodo-zdio.onrender.com/booknow', formData);
             console.log(response.data); // Log the response from the backend
             alert("Booking created successfully!"); // Show a success message
         } catch (error) {
@@ -32,7 +32,7 @@ const BookNow = () => {
             lastName: '',
             email: '',
             phoneNumber: '',
-            type: '', // Reset type after form submission
+            type: location.state.type, // Reset type after form submission
         });
     };
 
