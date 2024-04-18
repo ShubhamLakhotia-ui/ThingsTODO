@@ -3,7 +3,7 @@ import { keyframes } from '@emotion/react';
 import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { TextField, Button, Typography, Paper, Box } from '@mui/material';
+import { TextField, Button, Typography, Paper, Box, } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useUser } from '../context/UserContext'; // Import the useUser hook
 
@@ -80,7 +80,8 @@ function Login() {
         animation: `${rotateIn} 0.7s ease-in`
       }}>
         <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-          <Typography variant="h4" color="textPrimary" gutterBottom>Login</Typography>
+        <Typography variant="h3" color="#ffc107" textAlign="center" fontWeight='bold' gutterBottom>THINGS<span style={{ color: 'black' }}>TODO</span></Typography>
+          <Typography variant="h5" color="textPrimary" gutterBottom textAlign="center">Login</Typography>
           <TextField
             label="Username"
             variant="outlined"

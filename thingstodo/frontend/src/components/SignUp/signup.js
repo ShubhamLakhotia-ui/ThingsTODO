@@ -72,7 +72,7 @@ function SignUp() {
       <Paper sx={{
         position: 'relative',
         width: { xs: '90%', sm: '35rem' },
-        height: '30rem',
+        height: '40rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -84,7 +84,11 @@ function SignUp() {
         animation: `${rotateIn} 0.7s ease-in`
       }}>
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-          <Typography variant="h4" color="textPrimary" gutterBottom>Sign Up</Typography>
+
+
+          
+        <Typography variant="h3" color="#ffc107" textAlign="center" fontWeight='bold' gutterBottom>THINGS<span style={{ color: 'black' }}>TODO</span></Typography>
+          <Typography variant="h5" color="textPrimary" textAlign="center" gutterBottom>Create Account</Typography>
           <TextField
             label="Username"
             variant="outlined"
