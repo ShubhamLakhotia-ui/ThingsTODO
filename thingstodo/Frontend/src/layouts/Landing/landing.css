@@ -133,4 +133,36 @@ body {
 	.card {
 		margin-bottom: 30px;
 	}
+
+	
+}
+.footer-content {
+    padding: 50px 0;
+    background-color: black; /* Set background color to black */
+    color: orange; /* Set text color to yellow */
+}
+
+.footer-column {
+    padding-right: 20px;
+}
+
+.footer-column h5 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: bold; /* Make headings bold */
+	color : white;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    color: orange; /* Set email link color to orange */
 }
