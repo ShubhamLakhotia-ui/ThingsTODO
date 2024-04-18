@@ -352,7 +352,7 @@ const Landing = () => {
           </div>
         </div>
       </div>
-      <div className="col">
+      {/* <div className="col">
         <div className="card h-100 text-center" style={{alignItems:"center"}}>
           <div className="card-body d-flex flex-column justify-content-between" style={{ height: '400px', overflowY: 'auto' }}>
             <img alt="" className="img-fluid rounded-circle mb-3" src="img/team-1.jpg" />
@@ -368,7 +368,7 @@ const Landing = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       
       {/* Repeat the same structure for other team members */}
     </div>

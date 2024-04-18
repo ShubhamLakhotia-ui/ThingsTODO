@@ -90,7 +90,7 @@ const AdminDashboard = () => {
         </div>
       </nav>
       <div className="container top bg-warning" >
-        <h4 className="text-center">Admin Dashboard </h4>
+        <h4 className="text-center" style={{fontWeight:'bold'}}>Registered Users</h4>
         <div className="d-flex justify-content-center"> 
           <div className="col-md-8">
             <Table striped bordered hover>
