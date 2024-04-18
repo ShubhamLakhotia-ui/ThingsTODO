@@ -4,11 +4,12 @@ import { useUser } from './components/context/UserContext'; // Adjust the path i
 
 import SignUp from './components/SignUp/signup';
 import Landing from './layouts/Landing/landing';
-import Login from './components/LoginPage/login';
+
 import Booknow from './BookNow/booknow';
 // import AdminLanding from './adminhome/adminhomepage';
 import AdminLanding from './layouts/Landing/adminLanding';
 import EditPage from './layouts/Landing/edit';
+import Login from './components/LoginPage/login';
 
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
+      <Route path="/usernavbar" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/book" element={<Booknow />} />
         <Route path="/adminhome" element={<Booknow  />} />
         <Route path="/signup" element={<SignUp />} />
