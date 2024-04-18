@@ -143,7 +143,7 @@ const Landing = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/contact-query">
                   Contact
                 </a>
               </li>
@@ -373,6 +373,46 @@ const Landing = () => {
       {/* Repeat the same structure for other team members */}
     </div>
   </div>
+</section>
+<section className="footer-content py-4">
+    <div className="container">
+        <div className="row">
+            <div className="col-md-3 footer-column">
+                <h5>Exclusives</h5>
+                <ul>
+                    <li>Adventure</li>
+                    <li>Birthdays & Anniversaries</li>
+                    <li>Date Nights</li>
+                    <li>At Home</li>
+                </ul>
+            </div>
+            <div className="col-md-3 footer-column">
+                <h5>Deals</h5>
+                <ul>
+                    <li>Staycation</li>
+                    <li>Events & Activities</li>
+                    <li>Food and Drinks</li>
+                    <li>Wellness</li>
+                </ul>
+            </div>
+            <div className="col-md-3 footer-column">
+                <h5>Things2Do</h5>
+                <ul>
+                    <li>Home</li>
+                    <li>Blogs</li>
+                    <li>Contact us</li>
+                    <li>FAQs</li>
+                    <li>Terms and conditions</li>
+                </ul>
+            </div>
+            
+            <div className="col-md-3 footer-column ">
+                <h5>Call Us On</h5>
+                <p>857 381 7898</p>
+                <a href="https://www.gmail.com" className="card-text">jainagrima8@gmail.com</a>
+            </div>
+        </div>
+    </div>
 </section>
 
       <footer className="bg-light p-2 text-center">

@@ -14,7 +14,7 @@ function EditPage({ type1, description1, fetchExclusiveExperiences, userId }) {
   const handleSave = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/thingstodo/edit-event",
+        "https://thingstodo-zdio.onrender.com/thingstodo/edit-event",
         {
           method: "POST",
           headers: {

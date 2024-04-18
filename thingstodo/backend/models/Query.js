@@ -57,6 +57,10 @@ const querySchema = new mongoose.Schema({
     trim : true,
     // minlength : 10,
     maxlength : 500
+  },
+  flag:{
+    type:String,
+    required: false,
   }
 
 });

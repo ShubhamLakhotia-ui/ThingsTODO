@@ -28,7 +28,7 @@ function AddEventPage() {
       formData.append('description', description);
       formData.append('image', image);
 
-      const response = await fetch('http://localhost:4000/thingstodo/add-event', {
+      const response = await fetch('https://thingstodo-zdio.onrender.com/thingstodo/add-event', {
         method: 'POST',
         body: formData
       });
@@ -84,8 +84,13 @@ function AddEventPage() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-              <a className="nav-link" href="/admin-landing">
+                <a className="nav-link" href="/admin-landing">
                   Home
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/admin-dashboard">
+                  Dashboard
                 </a>
               </li>
               <li className="nav-item">
@@ -94,7 +99,7 @@ function AddEventPage() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+              <a className="nav-link" href="/admin-query">
                   Querries
                 </a>
               </li>
@@ -103,15 +108,16 @@ function AddEventPage() {
                   Bookings
                 </a>
               </li>
+           
               <li className="nav-item">
-                                <a className="nav-link" href="/login" onClick={handleLogout}>
-                                    Logout
-                                </a>
-                            </li>
+                <a className="nav-link" href="/login" onClick={handleLogout}>
+                  Logout
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-      </nav> 
+      </nav>
       <Container className="d-flex justify-content-center align-items-center bg-warning" style={{ minHeight: '100vh',minWidth:'100%' }}>
         <div className="p-4 rounded" style={{ backgroundColor: 'white', maxWidth: '500px', width: '100%' }}>
           <h2 className="mb-4" style={{textAlign:"center"}}>Add <span className='text-warning'>Event</span> </h2>
