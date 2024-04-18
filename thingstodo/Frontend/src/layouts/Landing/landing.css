@@ -5,13 +5,13 @@
 
 
 .carousel {
-    height: 80vh; 
+    height: 100vh; 
 }
 
 .carousel-inner img {
-	height: 90vh; /* Adjust the height to fill the container */
+	height: 100vh; /* Adjust the height to fill the container */
     width: 100%; /* Adjust the width to fill the container */
-    object-fit: contain; /* Ensure the full image is visible without cropping */
+    object-fit: cover; /* Ensure the full image is visible without cropping */
 
   }
 
@@ -29,7 +29,7 @@ body {
 	padding: 100px 0;
 }
 .carousel-item {
-	height: 80vh;
+	height: 100vh;
 	min-height: 300px;
 }
 .carousel-inner:before {

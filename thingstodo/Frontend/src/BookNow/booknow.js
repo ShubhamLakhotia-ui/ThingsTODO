@@ -116,7 +116,7 @@ const BookNow = () => {
                             <div className="col-md-6">
                                 <div className="card">
                                     <div className="card-body">
-                                        <h2 className="card-title text-center">Book Now</h2>
+                                        <h2 className="card-title text-center">Book <span className='text-warning'>Now</span></h2>
                                         <form onSubmit={onSubmit}>
                                             <div className="mb-3">
                                                 <label htmlFor="firstName" className="form-label">First Name</label>
@@ -138,7 +138,7 @@ const BookNow = () => {
                                                 <label htmlFor="type" className="form-label">Type</label>
                                                 <input type="text" className="form-control" id="type" name="type" value={formData.type} onChange={handleInputChange} required readOnly />
                                             </div>
-                                            <button type="submit" className="btn btn-primary">Book Now</button>
+                                            <button type="submit" className="btn btn-primary bg-warning">Book Now</button>
                                         </form>
                                         <span>{result}</span>
                                     </div>
