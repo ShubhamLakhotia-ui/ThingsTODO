@@ -1,30 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Table } from 'react-bootstrap';
-import './adminDashboard.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Table } from "react-bootstrap";
+import "./adminDashboard.css";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
-
+  // https://thingstodo-zdio.onrender.com
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://thingstodo-zdio.onrender.com/users');
+        const response = await axios.get(`${API_BASE_URL}/users`);
         setUsers(response.data);
       } catch (error) {
-        console.error('Error fetching users:', error.message);
+        console.error("Error fetching users:", error.message);
       }
     };
 
     fetchUsers();
   }, []);
   const handleLogout = () => {
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('userType');
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("userType");
     alert("Logout successful!");
   };
   return (
-    <div className='bg-warning' style={{ height: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+    <div
+      className="bg-warning"
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <link
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
         rel="stylesheet"
@@ -70,7 +80,7 @@ const AdminDashboard = () => {
                 </a>
               </li>
               <li className="nav-item">
-              <a className="nav-link" href="/admin-query">
+                <a className="nav-link" href="/admin-query">
                   Querries
                 </a>
               </li>
@@ -79,7 +89,7 @@ const AdminDashboard = () => {
                   Bookings
                 </a>
               </li>
-           
+
               <li className="nav-item">
                 <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
@@ -89,9 +99,11 @@ const AdminDashboard = () => {
           </div>
         </div>
       </nav>
-      <div className="container top bg-warning" >
-        <h4 className="text-center" style={{fontWeight:'bold'}}>Registered Users</h4>
-        <div className="d-flex justify-content-center"> 
+      <div className="container top bg-warning">
+        <h4 className="text-center" style={{ fontWeight: "bold" }}>
+          Registered Users
+        </h4>
+        <div className="d-flex justify-content-center">
           <div className="col-md-8">
             <Table striped bordered hover>
               <thead>
@@ -119,4 +131,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-

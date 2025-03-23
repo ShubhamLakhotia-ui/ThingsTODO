@@ -10,23 +10,20 @@ function EditPage({ type1, description1, fetchExclusiveExperiences, userId }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const handleSave = async () => {
     try {
-      const response = await fetch(
-        "https://thingstodo-zdio.onrender.com/thingstodo/edit-event",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: userId,
-            type: type,
-            description: description,
-          }),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/thingstodo/edit-event`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+          type: type,
+          description: description,
+        }),
+      });
 
       if (response.status === 200) {
         console.log("Event edited successfully");

@@ -1,30 +1,30 @@
-import React,{useEffect, useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./bookingList.css";
 const BookingList = () => {
-    const navigate = useNavigate();
-    const [bookings,setBookings]=useState([])
+  const navigate = useNavigate();
+  const [bookings, setBookings] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  useEffect(() => {
+    axios
+      .get(`${API_BASE_URL}/booknow-getall`)
+      .then((response) => {
+        setBookings(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching images:", error);
+      });
+  }, []);
 
-    useEffect(() => {
-        axios
-          .get("https://thingstodo-zdio.onrender.com/booknow-getall")
-          .then((response) => {
-            setBookings(response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching images:", error);
-          });
-      },[]);
-
-      const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        sessionStorage.removeItem('userType');
-        alert("Logout successful!");
-      };
+  const handleLogout = () => {
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("userType");
+    alert("Logout successful!");
+  };
   return (
     <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
           <a className="navbar-brand" href="#">
             <span className="text-warning">Things</span>ToDO
@@ -58,7 +58,7 @@ const BookingList = () => {
                 </a>
               </li>
               <li className="nav-item">
-              <a className="nav-link" href="/admin-query">
+                <a className="nav-link" href="/admin-query">
                   Querries
                 </a>
               </li>
@@ -67,7 +67,7 @@ const BookingList = () => {
                   Bookings
                 </a>
               </li>
-           
+
               <li className="nav-item">
                 <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
@@ -78,27 +78,50 @@ const BookingList = () => {
         </div>
       </nav>
 
-      <div className="container mt-5" style={{marginTop:"5rem !important"}}>
-        <h1 className="text-center mb-4">Booking<span className="text-warning"> Listing</span> </h1>
-        {bookings.map(job => (
-          <div className="card mb-4 bg-warning" key={job.email} style={{ backgroundColor: 'orange' }}>
+      <div className="container mt-5" style={{ marginTop: "5rem !important" }}>
+        <h1 className="text-center mb-4">
+          Booking<span className="text-warning"> Listing</span>{" "}
+        </h1>
+        {bookings.map((job) => (
+          <div
+            className="card mb-4 bg-warning"
+            key={job.email}
+            style={{ backgroundColor: "orange" }}
+          >
             <div className="card-body">
               <h3 className="card-title">Type : {job.type}</h3>
-              <p className="card-text"><span style={{fontWeight:"bold"}}>Email : </span>{ job.email}</p>
-              <p className="card-text"><span style={{fontWeight:"bold"}}>First Name : </span>{ job.firstName}</p>
-              <p className="card-text"><span style={{fontWeight:"bold"}}>Last Name : </span>{ job.lastName}</p>
-              <p className="card-text"><span style={{fontWeight:"bold"}}>Phone Number : </span>{ job.phoneNumber}</p>
+              <p className="card-text">
+                <span style={{ fontWeight: "bold" }}>Email : </span>
+                {job.email}
+              </p>
+              <p className="card-text">
+                <span style={{ fontWeight: "bold" }}>First Name : </span>
+                {job.firstName}
+              </p>
+              <p className="card-text">
+                <span style={{ fontWeight: "bold" }}>Last Name : </span>
+                {job.lastName}
+              </p>
+              <p className="card-text">
+                <span style={{ fontWeight: "bold" }}>Phone Number : </span>
+                {job.phoneNumber}
+              </p>
             </div>
           </div>
         ))}
       </div>
       <footer className="bg-light p-2 text-center">
         <div className="container">
-          <p className="text-warning">All Right Reserved By <span style={{ color: 'black', fontWeight:'bold' }}>@ThingsToDo</span> </p>
+          <p className="text-warning">
+            All Right Reserved By{" "}
+            <span style={{ color: "black", fontWeight: "bold" }}>
+              @ThingsToDo
+            </span>{" "}
+          </p>
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
 export default BookingList;
