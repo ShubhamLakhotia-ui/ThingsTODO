@@ -1,71 +1,69 @@
-
-
-import { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 
 function AddEventPage() {
-  const [userId, setUserId] = useState('');
-  const [type, setType] = useState('');
-  const [description, setDescription] = useState('');
+  const [userId, setUserId] = useState("");
+  const [type, setType] = useState("");
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [alertVisible, setAlertVisible] = useState(false);
-  const [alertType, setAlertType] = useState('');
-  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const formData = new FormData();
-      formData.append('userId', userId);
-      formData.append('type', type);
-      formData.append('description', description);
-      formData.append('image', image);
+      formData.append("userId", userId);
+      formData.append("type", type);
+      formData.append("description", description);
+      formData.append("image", image);
 
-      const response = await fetch('https://thingstodo-zdio.onrender.com/thingstodo/add-event', {
-        method: 'POST',
-        body: formData
+      const response = await fetch(`${API_BASE_URL}/thingstodo/add-event`, {
+        method: "POST",
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add event');
+        throw new Error("Failed to add event");
       }
 
-      console.log('Event added successfully');
-      
+      console.log("Event added successfully");
+
       // Clear all the fields by resetting the state variables
-      setUserId('');
-      setType('');
-      setDescription('');
+      setUserId("");
+      setType("");
+      setDescription("");
       setImage(null);
 
       // Set alert details for success
       setAlertVisible(true);
-      setAlertType('success');
-      setAlertMessage('Event added successfully');
+      setAlertType("success");
+      setAlertMessage("Event added successfully");
 
       // Optionally, redirect the user to another page or show a success message
     } catch (error) {
-      console.error('Error adding event:', error.message);
+      console.error("Error adding event:", error.message);
       // Handle error appropriately, such as displaying an error message to the user
     }
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('userType');
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("userType");
     alert("Logout successful!");
   };
 
   return (
     <div>
-     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
           <a className="navbar-brand" href="#">
             <span className="text-warning">Things</span>ToDO
@@ -99,7 +97,7 @@ function AddEventPage() {
                 </a>
               </li>
               <li className="nav-item">
-              <a className="nav-link" href="/admin-query">
+                <a className="nav-link" href="/admin-query">
                   Querries
                 </a>
               </li>
@@ -108,7 +106,7 @@ function AddEventPage() {
                   Bookings
                 </a>
               </li>
-           
+
               <li className="nav-item">
                 <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
@@ -118,14 +116,27 @@ function AddEventPage() {
           </div>
         </div>
       </nav>
-      <Container className="d-flex justify-content-center align-items-center bg-warning" style={{ minHeight: '100vh',minWidth:'100%' }}>
-        <div className="p-4 rounded" style={{ backgroundColor: 'white', maxWidth: '500px', width: '100%' }}>
-          <h2 className="mb-4" style={{textAlign:"center"}}>Add <span className='text-warning'>Event</span> </h2>
+      <Container
+        className="d-flex justify-content-center align-items-center bg-warning"
+        style={{ minHeight: "100vh", minWidth: "100%" }}
+      >
+        <div
+          className="p-4 rounded"
+          style={{ backgroundColor: "white", maxWidth: "500px", width: "100%" }}
+        >
+          <h2 className="mb-4" style={{ textAlign: "center" }}>
+            Add <span className="text-warning">Event</span>{" "}
+          </h2>
           {alertVisible && (
             <div className="modal-background">
               <div className={`alert alert-${alertType}`} role="alert">
                 {alertMessage}
-                <button type="button" className="btn-close" aria-label="Close" onClick={() => setAlertVisible(false)}></button>
+                <button
+                  type="button"
+                  className="btn-close"
+                  aria-label="Close"
+                  onClick={() => setAlertVisible(false)}
+                ></button>
               </div>
             </div>
           )}
@@ -160,10 +171,7 @@ function AddEventPage() {
             </Form.Group>
             <Form.Group controlId="formImage">
               <Form.Label>Image</Form.Label>
-              <Form.Control
-                type="file"
-                onChange={handleImageChange}
-              />
+              <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
             <br></br>
             <div className="d-flex justify-content-center">
@@ -176,7 +184,12 @@ function AddEventPage() {
       </Container>
       <footer className="bg-light p-2 text-center">
         <div className="container">
-          <p className="text-warning">All Right Reserved By <span style={{ color: 'black', fontWeight:'bold' }}>@ThingsToDo</span> </p>
+          <p className="text-warning">
+            All Right Reserved By{" "}
+            <span style={{ color: "black", fontWeight: "bold" }}>
+              @ThingsToDo
+            </span>{" "}
+          </p>
         </div>
       </footer>
     </div>

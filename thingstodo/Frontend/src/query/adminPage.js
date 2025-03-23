@@ -13,16 +13,16 @@ import axios from "axios";
 const AdminQueryPage = () => {
   const [queries, setQueries] = useState([]);
   const [responses, setResponses] = useState({});
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     fetchQueries();
   }, []);
 
   const fetchQueries = async () => {
     try {
-      const response = await axios.get("https://thingstodo-zdio.onrender.com/queries-getall");
+      const response = await axios.get(`${API_BASE_URL}/queries-getall`);
       // Filter out queries with flag="false"
-      setQueries(response.data.filter(query => query.flag !== "false"));
+      setQueries(response.data.filter((query) => query.flag !== "false"));
     } catch (error) {
       console.error("Error fetching queries:", error);
     }
@@ -43,20 +43,19 @@ const AdminQueryPage = () => {
         phoneNumber: query.phoneNumber,
         query: query.query,
         admin: responses[query.username] || "",
-        flag: "false"
+        flag: "false",
       };
-  
-    //   const response = await axios.put(
-    //     `http://localhost:4000/editquery/${encodedUsername}`, // Encode the username to ensure URL safety
-    //     payload
-    //   );
-       
+
+      //   const response = await axios.put(
+      //     `http://localhost:4000/editquery/${encodedUsername}`, // Encode the username to ensure URL safety
+      //     payload
+      //   );
+
       const response = await axios.put(
-        `https://thingstodo-zdio.onrender.com/editQuery`, // Encode the username to ensure URL safety
+        `${API_BASE_URL}/editQuery`, // Encode the username to ensure URL safety
         payload
       );
-   
-  
+
       console.log("Response submitted successfully:", response.data);
       fetchQueries();
     } catch (error) {
@@ -64,14 +63,14 @@ const AdminQueryPage = () => {
     }
   };
   const handleLogout = () => {
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('userType');
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("userType");
     alert("Logout successful!");
   };
 
   return (
     <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container">
           <a className="navbar-brand" href="#">
             <span className="text-warning">Things</span>ToDO
@@ -114,7 +113,7 @@ const AdminQueryPage = () => {
                   Bookings
                 </a>
               </li>
-           
+
               <li className="nav-item">
                 <a className="nav-link" href="/login" onClick={handleLogout}>
                   Logout
